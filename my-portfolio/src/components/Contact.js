@@ -9,7 +9,7 @@ export default function Contact() {
                         width="100%"
                         height="100%"
                         title="map"
-                        className="absolute inset-0" // display map in the entire div
+                        className="absolute inset-0" // display google map in the entire div
                         style={{ filter: "opacity(0.7)" }}
                         src="https://www.google.com/maps/embed/v1/place?q=Nantes,+France&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
                     />
@@ -42,10 +42,10 @@ export default function Contact() {
                     name="contact"
                     className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
                     <h2 className="text-white sm:text-4xl text-3xl mb-1 font-medium title-font">
-                        Contactez moi
+                        
                     </h2>
                     <p className="leading-relaxed mb-5">
-                        Vous êtes à la recherche d'un étudiant alternant motivé et prêt à ce mettre au service de votre structure, remplissez les champs suivants :
+                        Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à ce mettre au service de votre structure, remplissez les champs suivants :
                     </p>
                     <div className="relative mb-4">
                         <label htmlFor="name" className="leading-7 text-sm text-gray-400">
