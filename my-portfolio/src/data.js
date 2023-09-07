@@ -1,10 +1,10 @@
 export const projects = [
   {
-    title: "React Reserve",
-    subtitle: "MERN Stack",
+    title: "Les Mousquetaires",
+    subtitle: "jeux video rétro",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium dolore rerum laborum iure enim sint nemo omnis voluptate exercitationem eius?",
-    image: "./project-1.gif",
+      "Un petit jeu d'aventure qui ressemble étrangement à style d'une oeuvre réalisé par un certain Shigeru Miyamoto ",
+    image: "./project-2.gif",
     link: "https://reactbootcamp.com",
   },
   {
