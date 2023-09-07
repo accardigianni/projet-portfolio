@@ -1,7 +1,7 @@
 import { CodeIcon } from "@heroicons/react/solid";
 import React from "react";
 import { projects } from "../Data";
-// creer un composant juste pour lafichage des projets 
+// creer un composant juste pour laffichage des projets 
 
 
 
