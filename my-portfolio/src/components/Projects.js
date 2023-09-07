@@ -19,7 +19,7 @@ export default function Projects() {
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-left">
                         L'une des particularités de ma formation est la mise en oeuvre de la méthode Montessori qui conciste à apprendre par
                         la réalisation de projet de groupe ou personnel.
-                        La capacité à jongler entre les technologies et la réalisation de projets sur un temps restreints permet ainsi saisir les concepts des langages
+                        La capacité à jongler entre les technologies et la réalisation de projets sur un temps restreints permet ainsi de saisir les concepts des langages
                         de programmation utilisés et certains de leurs enjeux.
                     </p>
                 </div>
