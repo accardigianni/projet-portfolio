@@ -1,6 +1,7 @@
 // C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\public\project-1.gif
 // C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\src\assets\Pico8.gif
 import pico8 from "./assets/pico8.gif"
+import datavis from "./assets/dataVis.gif"
 
 export const projects = [
   {
@@ -16,7 +17,7 @@ export const projects = [
     subtitle: "MongoDB, Node.js, Express, Javascript, React et Bootstrap",
     description:
       "Site de vente de meuble de seconde main",
-    image: "./project-2.gif",
+    image: datavis,
     link: "https://github.com/accardigianni/back-endProjetAntikea",
   },
   {
