@@ -1,6 +1,9 @@
 import { CodeIcon } from "@heroicons/react/solid";
 import React from "react";
-import { projects } from "../data";
+import { projects } from "../Data";
+// creer un composant juste pour lafichage des projets 
+
+
 
 
 
@@ -28,7 +31,7 @@ export default function Projects() {
                             className="sm:w-1/2 w-100 p-4">
                             <div className="flex relative">
                                 <img
-                                    alt="gallery"
+                                    alt="project description"
                                     className="absolute inset-0 w-full h-full object-cover object-center"
                                     src={project.image}
                                 />

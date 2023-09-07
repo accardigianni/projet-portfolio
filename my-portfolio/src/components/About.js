@@ -1,5 +1,4 @@
 import React from "react";
-import photoUk from "../assets/uk.png"
 import photoFr from "../assets/fr.png"
 import photoSmile from "../assets/clin-doeil.png"
 import PhotoMe from "../assets/me.jpg"
@@ -14,11 +13,14 @@ export default function About() {
             <div className="container mx-auto flex px-10 py-20 md:flex-row flex-col items-center">
                 <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div className="flex items-center">
-                        <p className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">
+                        <div className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white flex items-center justify-center">
+                            <img src={photoFr} alt="french flag" className="self-start mt-2 mr-1" />
                             <h1>
+
                                 Bonjour je m'appel Gianni et je suis étudiant développeur.
                             </h1>
-                        </p>
+
+                        </div>
                     </div>
                     <br className="hidden lg:inline-block" />
                     Je suis commercial de formation, je souhaites me reconvertir

@@ -1,33 +1,37 @@
+// C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\public\project-1.gif
+// C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\src\assets\Pico8.gif
+import pico8 from "./assets/pico8.gif"
+
 export const projects = [
   {
-    title: "Les Mousquetaires",
-    subtitle: "jeux video rétro",
+    title: "Jeux video rétro",
+    subtitle: "Pico-8 et LUA",
     description:
       "Un petit jeu d'aventure qui ressemble étrangement à style d'une oeuvre réalisé par un certain Shigeru Miyamoto ",
-    image: "./project-2.gif",
-    link: "https://reactbootcamp.com",
+    image: pico8,
+    link: "https://github.com/accardigianni/projet-collectif---pico8-les-mousquetaires",
   },
   {
-    title: "React Tracks",
-    subtitle: "React and Python",
+    title: "Antikea",
+    subtitle: "MongoDB, Node.js, Express, Javascript, React et Bootstrap",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium dolore rerum laborum iure enim sint nemo omnis voluptate exercitationem eius?",
+      "Site de vente de meuble de seconde main",
     image: "./project-2.gif",
-    link: "https://reactbootcamp.com",
+    link: "https://github.com/accardigianni/back-endProjetAntikea",
   },
   {
-    title: "DevChat",
-    subtitle: "React and Firebase",
+    title: "Game4Ever",
+    subtitle: "MAMP, mySQL, PHP, HTML et CSS",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium dolore rerum laborum iure enim sint nemo omnis voluptate exercitationem eius?",
+      "Site réseau social type \"Facebook\" customiser pour les gamers",
     image: "./project-3.gif",
     link: "https://reactbootcamp.com",
   },
   {
-    title: "Epic Todo App",
-    subtitle: "React Hooks",
+    title: "Morpion",
+    subtitle: "Typescript et angular",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium dolore rerum laborum iure enim sint nemo omnis voluptate exercitationem eius?",
+      "Petit jeu de morpion",
     image: "./project-4.gif",
     link: "https://reactbootcamp.com",
   },
@@ -52,9 +56,13 @@ export const testimonials = [
 
 export const skills = [
   "JavaScript",
+  "Typescript",
+  "PHP",
   "React",
-  "Next.js",
+  "Angular",
   "Node",
-  "GraphQL",
-  "Material UI",
+  "MongoDB",
+  "mysql",
+  "Insomnia",
+  "Github",
 ];
