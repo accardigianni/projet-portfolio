@@ -19,7 +19,7 @@ export default function Contact() {
                                 ACCARDI Gianni
                             </h2>
                             <p className="mt-1">
-                                74, boulevard de la prairie au duc <br />
+                                Boulevard de la prairie au duc <br />
                                 44200 Nantes
                             </p>
                         </div>
