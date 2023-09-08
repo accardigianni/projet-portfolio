@@ -1,15 +1,9 @@
 import { CodeIcon } from "@heroicons/react/solid";
 import React from "react";
-import Show from "./Showproject";
+
 import ShowProject from "./Showproject";
-// import { projects } from "../Data";
 
-// creer un composant juste pour laffichage des projets 
-
-
-
-
-
+ 
 export default function Projects() {
     return (
         <section id="projects" className="text-gray-400 bg-gray-900 body-font">

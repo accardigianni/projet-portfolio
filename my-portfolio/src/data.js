@@ -1,5 +1,3 @@
-// C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\public\project-1.gif
-// C:\Users\giann\Desktop\ADA\Projets\projet-portfolio\my-portfolio\src\assets\Pico8.gif
 import pico8 from "./assets/pico8.gif"
 import datavis from "./assets/dataVis.gif"
 
@@ -55,7 +53,16 @@ export const testimonials = [
   },
 ];
 
-export const skills = [
+// export const skills =[{
+//   "Adaptabilité",
+//   "Partage",
+//   "Curiosité",
+//   "Engagement",
+//   "Sociabilité",
+//   "Travail d'équipe"
+// }];
+
+export const techno = [
   "JavaScript",
   "Typescript",
   "PHP",
@@ -63,7 +70,7 @@ export const skills = [
   "Angular",
   "Node",
   "MongoDB",
-  "mysql",
+  "Mysql",
   "Insomnia",
   "Github",
 ];
