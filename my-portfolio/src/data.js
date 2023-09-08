@@ -1,6 +1,12 @@
 import pico8 from "./assets/pico8.gif"
 import datavis from "./assets/dataVis.gif"
 
+import adapt from "./assets/adaptation.png"
+import collab from "./assets/collaboration.png"
+import curieux from "./assets/curieux.png"
+import engage from "./assets/engagement.png"
+import social from "./assets/sociable.png"
+
 export const projects = [
   {
     title: "Jeux video rétro",
@@ -53,14 +59,32 @@ export const testimonials = [
   },
 ];
 
-// export const skills =[{
-//   "Adaptabilité",
-//   "Partage",
-//   "Curiosité",
-//   "Engagement",
-//   "Sociabilité",
-//   "Travail d'équipe"
-// }];
+export const skills = [
+  {
+    name: "Travail d'équipe",
+    icon: collab
+  },
+  {
+    name: "Adaptabilité",
+    icon: adapt
+  },
+  // {
+  //   name: "Partage",
+  //   icon: collab
+  // },
+  {
+    name: "Curiosité",
+    icon: curieux
+  },
+  {
+    name: "Engagement",
+    icon: engage
+  },
+  {
+    name: "Sociabilité",
+    icon: social
+  }
+];
 
 export const techno = [
   "JavaScript",

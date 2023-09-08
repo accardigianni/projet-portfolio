@@ -3,10 +3,6 @@ import photoHello from "../assets/hello.png"
 import photoSmile from "../assets/clin-doeil.png"
 import PhotoMe from "../assets/me.jpg"
 
-
-
-
-
 export default function About() {
     return (
         <section id="about">
@@ -44,7 +40,7 @@ export default function About() {
                 <div className="lg:max-w-lg lg:w-2/5 md:w-1/2 w-5/6">
                     <img
                         className="object-cover object-center rounded-full "
-                        alt="photo de moi"
+                        alt="moi"
                         src={PhotoMe}
                     />
                 </div>

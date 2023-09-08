@@ -1,5 +1,5 @@
 import React from "react";
-import { TerminalIcon, UsersIcon } from "@heroicons/react/solid";
+import { UsersIcon } from "@heroicons/react/solid";
 import { skills } from "../Data";
 
 export default function Skills() {
@@ -10,31 +10,24 @@ export default function Skills() {
         <h1 className="sm:text-4xl text-3xl font-medium title-font text-white mb-12">
           Mes softs skills
         </h1>
-        {/* <div className="flex flex-wrap m-4">
-          {skills.map((skill) => (
-            <div className="p-4 md:w-1/2 w-full">
-              <div className="h-full bg-gray-800 bg-opacity-40 p-8 rounded">
-                <TerminalIcon className="block w-8 text-gray-500 mb-4" />
-                <p className="leading-relaxed mb-6">{testimonial.quote}</p>
-                <div className="inline-flex items-center">
+        <div className="container px-5 py-10 mx-auto">
+          <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
+            {skills.map((skill) => (
+              <div key={skill.name} className="p-2 sm:w-1/2 w-full">
+                <div className="bg-gray-800 rounded flex p-4 h-full items-center">
                   <img
-                    alt="testimonial"
-                    src={testimonial.image}
-                    className="w-12 rounded-full flex-shrink-0 object-cover object-center"
+                    className="mr-4"
+                    alt="icon"
+                    src={skill.icon}
                   />
-                  <span className="flex-grow flex flex-col pl-4">
-                    <span className="title-font font-medium text-white">
-                      {testimonial.name}
-                    </span>
-                    <span className="text-gray-500 text-sm uppercase">
-                      {testimonial.company}
-                    </span>
+                  <span className="title-font font-medium text-white">
+                    {skill.name}
                   </span>
                 </div>
               </div>
-            </div>
-          ))}
-        </div> */}
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
