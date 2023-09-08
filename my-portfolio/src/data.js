@@ -8,15 +8,15 @@ export const projects = [
     title: "Jeux video rétro",
     subtitle: "Pico-8 et LUA",
     description:
-      "Un petit jeu d'aventure qui ressemble étrangement à style d'une oeuvre réalisé par un certain Shigeru Miyamoto ",
+      "Un petit jeu d'aventure",
     image: pico8,
     link: "https://github.com/accardigianni/projet-collectif---pico8-les-mousquetaires",
   },
   {
     title: "Antikea",
-    subtitle: "MongoDB, Node.js, Express, Javascript, React et Bootstrap",
+    subtitle: "MongoDB, Node.js, Javascript, React et Bootstrap",
     description:
-      "Site de vente de meuble de seconde main",
+      "Site de vente de meuble de seconde main ",
     image: datavis,
     link: "https://github.com/accardigianni/back-endProjetAntikea",
   },
@@ -24,18 +24,18 @@ export const projects = [
     title: "Game4Ever",
     subtitle: "MAMP, mySQL, PHP, HTML et CSS",
     description:
-      "Site réseau social type \"Facebook\" customiser pour les gamers",
-    image: "./project-3.gif",
+      "Site réseau social type \"Facebook\"",
+    image: pico8,
     link: "https://reactbootcamp.com",
   },
   {
     title: "Morpion",
     subtitle: "Typescript et angular",
     description:
-      "Petit jeu de morpion",
-    image: "./project-4.gif",
+      "Petit jeu de morpion qui vous",
+    image: pico8,
     link: "https://reactbootcamp.com",
-  },
+  }
 ];
 
 export const testimonials = [
