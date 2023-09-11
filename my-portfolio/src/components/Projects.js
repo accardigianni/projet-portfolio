@@ -1,6 +1,5 @@
 import { CodeIcon } from "@heroicons/react/solid";
 import React from "react";
-
 import ShowProject from "./Showproject";
 
  
