@@ -9,7 +9,7 @@ import Techno from "./components/Techno"
 
 export default function App() {
   return (
-    <main className="text-gray-400 bg-gray-700 body-font">
+    <main className="text-gray-400 body-font">
       <Navbar />
       <About />
       <Projects />
