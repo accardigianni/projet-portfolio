@@ -1,5 +1,5 @@
 import React from "react";
-// import {ContactMe} from "./Contactform";
+import ContactMe from "./Contactform";
 
 export default function Contact() {
     return (
@@ -38,7 +38,7 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-                
+                <ContactMe/>
             </div>
         </section>
     );
