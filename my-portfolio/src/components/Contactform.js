@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+require('dotenv').config()
+console.log(process.env.Public_key);
 
 export default function ContactMe() {
 
@@ -10,8 +12,10 @@ export default function ContactMe() {
 
     emailjs.sendForm("service_nj5zbxs", "template_hp9xtvs", form.current, process.env.Public_key)
       .then((result) => {
+        console.log(process.env.Public_key);
         console.log(result.text);
       }, (error) => {
+        console.log(process.env.Public_key);
         console.log(error.text);
       });
   };
@@ -95,6 +99,7 @@ export default function ContactMe() {
       </div>
       <button
         type="submit"
+        value="Send"
         className="text-taupe bg-aquamarine border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg">
         Envoyer
       </button>
