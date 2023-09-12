@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 require('dotenv').config()
-console.log(process.env.Public_key);
+
 
 export default function ContactMe() {
 
@@ -9,38 +9,15 @@ export default function ContactMe() {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
-    emailjs.sendForm("service_nj5zbxs", "template_hp9xtvs", form.current, process.env.Public_key)
+    emailjs.sendForm("service_nj5zbxs", "template_hp9xtvs", form.current, process.env.REACT_APP_Public_key)
       .then((result) => {
-        console.log(process.env.Public_key);
-        console.log(result.text);
+        alert("merci votre message à bien tété envoyé");
       }, (error) => {
-        console.log(process.env.Public_key);
         console.log(error.text);
       });
   };
 
-  // const onSubmit = (data, r) => {
-  //   alert("Merci pour votre message, il sera traité au plus vite.");
-  //   const templateId = "template_hp9xtvs";
-  //   const serviceId = "service_nj5zbxs";
-  //   sendFeedBack(serviceId, templateId, {
-  //     name: data.name,
-  //     email: data.email,
-  //     company: data.company,
-  //     message: data.message,
-  //     reply_to: r.target.reset()
-  //   })
-  // }
 
-  // const sendFeedBack = (serviceId, templateId, variables) => {
-  //   emailjs
-  //     .sendForm(serviceId, templateId, variables, process.env.Public_key)
-  //     .then((res) => {
-  //       console.log("success");
-  //     })
-  //     .catch((err) => console.error("error"))
-  // }
 
   return (
     <form ref={form} onSubmit={sendEmail}
@@ -117,3 +94,25 @@ export default function ContactMe() {
 //     <input type="submit" value="Send" />
 //   </form>
 // );
+
+// const onSubmit = (data, r) => {
+//   alert("Merci pour votre message, il sera traité au plus vite.");
+//   const templateId = "template_hp9xtvs";
+//   const serviceId = "service_nj5zbxs";
+//   sendFeedBack(serviceId, templateId, {
+//     name: data.name,
+//     email: data.email,
+//     company: data.company,
+//     message: data.message,
+//     reply_to: r.target.reset()
+//   })
+// }
+
+// const sendFeedBack = (serviceId, templateId, variables) => {
+//   emailjs
+//     .sendForm(serviceId, templateId, variables, process.env.Public_key)
+//     .then((res) => {
+//       console.log("success");
+//     })
+//     .catch((err) => console.error("error"))
+// }

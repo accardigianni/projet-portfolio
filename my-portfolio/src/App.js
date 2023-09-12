@@ -7,7 +7,9 @@ import Skills from "./components/Skills";
 import Techno from "./components/Techno"
 
 
+
 export default function App() {
+
   return (
     <main className="text-gray-400 body-font">
       <Navbar />
