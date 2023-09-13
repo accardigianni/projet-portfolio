@@ -9,6 +9,20 @@ export default function ContactMe() {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    // Récupérer les valeurs des champs
+    const nameInput = form.current.querySelector('#name');
+    const emailInput = form.current.querySelector('#email');
+    const telephoneInput = form.current.querySelector('#telephone');
+
+    const nameValue = nameInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    const telephoneValue = telephoneInput.value.trim()
+
+    if (!nameValue || !emailValue || !telephoneValue) {
+      alert("Les champs ne sont pas correctement remplis. Veuillez remplir tous les champs.");
+      return;
+    }
+
     emailjs.sendForm("service_nj5zbxs", "template_hp9xtvs", form.current, process.env.REACT_APP_Public_key)
       .then((result) => {
         alert("merci votre message à bien été envoyé");
@@ -57,22 +71,13 @@ export default function ContactMe() {
           </label>
           <input
             type="tel"
-            id="téléphone"
+            id="telephone"
             name="tel"
+            pattern="[0-9]*"
+            maxLength="10"
             className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           />
         </div>
-      </div>
-      <div className="relative mb-4">
-        <label htmlFor="company" className="leading-7 text-sm">
-          Nom de votre société
-        </label>
-        <input
-          type="text"
-          id="company"
-          name="company"
-          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        />
       </div>
       <div className="relative mb-4">
         <label
@@ -95,25 +100,3 @@ export default function ContactMe() {
     </form>
   )
 };
-
-// const onSubmit = (data, r) => {
-//   alert("Merci pour votre message, il sera traité au plus vite.");
-//   const templateId = "template_hp9xtvs";
-//   const serviceId = "service_nj5zbxs";
-//   sendFeedBack(serviceId, templateId, {
-//     name: data.name,
-//     email: data.email,
-//     company: data.company,
-//     message: data.message,
-//     reply_to: r.target.reset()
-//   })
-// }
-
-// const sendFeedBack = (serviceId, templateId, variables) => {
-//   emailjs
-//     .sendForm(serviceId, templateId, variables, process.env.Public_key)
-//     .then((res) => {
-//       console.log("success");
-//     })
-//     .catch((err) => console.error("error"))
-// }
