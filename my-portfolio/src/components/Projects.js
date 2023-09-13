@@ -18,7 +18,8 @@ export default function Projects() {
                     J'ai ainsi pu saisir les différentes notions liées entre le Front-end et le Back-end, decouvrir différentes langages, 
                     comprendre l'enjeu certaines méthodes agiles afin de réaliser un MVP dans des délais plus ou moins restreint.
                     </p>
-                    <p className="text-lightblue">Cliquez sur une image afin d'avoir accès aux dépots github.
+                    <br/>
+                    <p className="text-lightblue text-left">Cliquez sur une image afin d'avoir accès aux dépots github.
 
                     </p>
                 </div>

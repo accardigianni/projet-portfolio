@@ -8,6 +8,7 @@ import collab from "./assets/collaboration.png";
 import curieux from "./assets/curieux.png";
 import engage from "./assets/engagement.png";
 import social from "./assets/sociable.png";
+import mentorat from "./assets/mentorat.png";
 
 export const projects = [
   // {
@@ -81,6 +82,10 @@ export const skills = [
   {
     name: "Sociabilité",
     icon: social
+  },
+  {
+    name:"Mentorat",
+    icon: mentorat
   }
 ];
 

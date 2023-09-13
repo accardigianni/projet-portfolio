@@ -2,6 +2,7 @@ import React from "react";
 import photoHello from "../assets/hello.png"
 import photoSmile from "../assets/clin-doeil.png"
 import PhotoMe from "../assets/me2.jpg"
+import { commandeline } from "@heroicons/react/solid"
 
 export default function About() {
     return (
@@ -27,12 +28,14 @@ export default function About() {
                         &nbsp;
                         qui applique les principes de la méthode Montessori consistant à apprendre par la réalisation de projet.
                         <br id="2" />
+                        <br />
                         Je suis à la recherche d'un <span className="font-bold text-strongblue">contrat d'alternance</span> à partir d'<span className="font-bold text-strongblue">octobre 2023</span> afin de pouvoir valider un <span className="font-bold text-strongblue">Titre RNCP
                             de niveau 6</span> et réintégrer le monde du travail.
                         <br id="3" />
                         Fort de mes expériences dans le milieu professionnel, j'ai l'habitude de
                         collaborer avec une équipe et de m'adapter aux situations pouvant se présenter.
                         <br id="4" />
+                        <br />
                         Ce portfolio est évolutif et a pour but de présenter mes projets et de pouvoir mettre en avant mon travail et mes avancées dans le monde
                         de la programmation. N'hésitez pas à me faire des retours via mon formulaire sur des axes d'améliorations possibles.
                     </div>
