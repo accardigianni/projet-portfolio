@@ -15,7 +15,7 @@ export default function ContactMe() {
       }, (error) => {
         console.log(error.text);
       });
-      form.current.reset()
+    form.current.reset()
   };
 
 
@@ -43,7 +43,7 @@ export default function ContactMe() {
       </div>
       <div className="relative mb-4">
         <label htmlFor="email" className="leading-7 text-sm">
-          Votre contact ( Email ou numéro de téléphone)
+          Votre email
         </label>
         <input
           type="email"
@@ -51,10 +51,21 @@ export default function ContactMe() {
           name="email"
           className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
+        <div className="relative mb-4">
+          <label htmlFor="company" className="leading-7 text-sm">
+            Votre numéro de téléphone
+          </label>
+          <input
+            type="tel"
+            id="téléphone"
+            name="tel"
+            className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
+        </div>
       </div>
       <div className="relative mb-4">
         <label htmlFor="company" className="leading-7 text-sm">
-          Nom de votre structure
+          Nom de votre société
         </label>
         <input
           type="text"
