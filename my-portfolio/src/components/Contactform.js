@@ -41,12 +41,16 @@ export default function ContactMe() {
       {/* <h2 className="text-lightblue sm:text-4xl text-3xl mb-1 font-medium title-font">
 
       </h2> */}
-      <p className="leading-relaxed mb-5 ">
-        Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à ce mettre au service de votre structure, remplissez les champs suivants :
-      </p>
+      <div className="leading-relaxed mb-5 ">
+        Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à ce mettre au service de votre structure, remplissez les champs suivants:
+        <br className='font-extralight' />
+        Les champs suivis d'une * sont obligatoires
+      </div>
+
+
       <div className="relative mb-4 text-lightblue">
         <label htmlFor="name" className="leading-7 text-sm">
-          Votre Nom et prénom
+          Votre Nom *
         </label>
         <input
           type="text"
@@ -57,7 +61,7 @@ export default function ContactMe() {
       </div>
       <div className="relative mb-4">
         <label htmlFor="email" className="leading-7 text-sm">
-          Votre email
+          Votre email *
         </label>
         <input
           type="email"
@@ -67,7 +71,7 @@ export default function ContactMe() {
         />
         <div className="relative mb-4">
           <label htmlFor="company" className="leading-7 text-sm">
-            Votre numéro de téléphone
+            Votre numéro de téléphone *
           </label>
           <input
             type="tel"
