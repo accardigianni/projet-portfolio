@@ -21,11 +21,10 @@ export default function About() {
                         Je suis issue d'une formation comptable et commerciale. Après plusieurs années d'expériences
                         sédentaires et itinérantes, j'entreprends une reconversion dans les métiers liés à la programmation informatique.
                         Je suis en formation au sein d'
-                        <em space> </em>
                         <a href="https://adatechschool.fr/" className="text-strongblue font-bold hidden lg:inline-block title-font">
                             Ada tech school
                         </a>
-                        <em space> </em>
+                        &nbsp;
                         qui applique les principes de la méthode Montessori consistant à apprendre par la réalisation de projet.
                         <br id="2" />
                         Je suis à la recherche d'un <span className="font-bold text-strongblue">contrat d'alternance</span> à partir d'<span className="font-bold text-strongblue">octobre 2023</span> afin de pouvoir valider un <span className="font-bold text-strongblue">Titre RNCP
@@ -50,7 +49,7 @@ export default function About() {
                         <a
                             href="#projects"
                             className="ml-4 inline-flex text-lightblue bg-strongblue border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg">
-                            Presentation des projets
+                            Présentation des projets
                         </a>
                     </div>
                 </div>
