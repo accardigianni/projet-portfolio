@@ -1,8 +1,7 @@
 import React from "react";
 import photoHello from "../assets/hello.png"
 import photoSmile from "../assets/clin-doeil.png"
-import PhotoMe from "../assets/me.jpg"
-import Phototest from "../assets/me2.jpg"
+import PhotoMe from "../assets/me2.jpg"
 
 export default function About() {
     return (
@@ -29,8 +28,8 @@ export default function About() {
                         <em space> </em>
                         qui applique les principes de la méthode Montessori consistant à apprendre par la réalisation de projet.
                         <br id="2" />
-                        Je suis à la recherche d'un contrat d'alternance à partir d'octobre 2023 afin de pouvoir valider un Titre RNCP
-                        de niveau 6 et réintégrer le monde du travail.
+                        Je suis à la recherche d'un <span className="font-bold text-strongblue">contrat d'alternance</span> à partir d'<span className="font-bold text-strongblue">octobre 2023</span> afin de pouvoir valider un <span className="font-bold text-strongblue">Titre RNCP
+                            de niveau 6</span> et réintégrer le monde du travail.
                         <br id="3" />
                         Fort de mes expériences dans le milieu professionnel, j'ai l'habitude de
                         collaborer avec une équipe et de m'adapter aux situations pouvant se présenter.
@@ -59,7 +58,7 @@ export default function About() {
                     <img
                         className="object-cover object-center rounded-full "
                         alt="moi"
-                        src={Phototest}
+                        src={PhotoMe}
                     />
                 </div>
             </div>
