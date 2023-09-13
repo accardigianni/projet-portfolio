@@ -19,7 +19,7 @@ export default function ContactMe() {
     const telephoneValue = telephoneInput.value.trim()
 
     if (!nameValue || !emailValue || !telephoneValue) {
-      alert("Les champs ne sont pas correctement remplis. Veuillez remplir tous les champs.");
+      alert("Les champs ne sont pas correctement remplis. Veuillez remplir les champs obligatoire svp.");
       return;
     }
 
