@@ -2,25 +2,26 @@ import React from "react";
 import photoHello from "../assets/hello.png"
 import photoSmile from "../assets/clin-doeil.png"
 import PhotoMe from "../assets/me.jpg"
+import Phototest from "../assets/me2.jpg"
 
 export default function About() {
     return (
-        <section id="about " className="bg-lightblue">
+        <section id="about" className="bg-lightblue">
             <div className="container mx-auto flex px-10 py-20 md:flex-row flex-col items-center">
                 <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div className="flex items-center">
                         <div className="title-font sm:text-4xl text-3xl mb-4 font-medium text-strongblue flex items-center justify-center">
                             <img src={photoHello} alt="hello" className="self-start mt-2 mr-1" />
                             <h1>
-                                Bonjour je m'appel Gianni et je suis étudiant en conception et dévéloppement Web .
+                                Bonjour, je m'appelle Gianni et je suis étudiant en conception et développement web.
                             </h1>
                         </div>
                     </div>
                     <div className="text-gray">
                         <br id="1" className=" hidden lg:inline-block title-font " />
-                        Je suis issu d'une formation comptable et commerciale. Après plusieurs années d'expériences
-                        sédentaire et itinérante, j'entreprends une reconversion dans les métiers liés à la programmation informatique.
-                        Je suis en formation au seins de
+                        Je suis issue d'une formation comptable et commerciale. Après plusieurs années d'expériences
+                        sédentaires et itinérantes, j'entreprends une reconversion dans les métiers liés à la programmation informatique.
+                        Je suis en formation au sein d'
                         <em space> </em>
                         <a href="https://adatechschool.fr/" className="text-strongblue font-bold hidden lg:inline-block title-font">
                             Ada tech school
@@ -35,7 +36,7 @@ export default function About() {
                         collaborer avec une équipe et de m'adapter aux situations pouvant se présenter.
                         <br id="4" />
                         Ce portfolio est évolutif et a pour but de présenter mes projets et de pouvoir mettre en avant mon travail et mes avancées dans le monde
-                        de la programmation. N'hesitez pas à me faire des retours via mon formulaire sur des axes d'améliorations possibles.
+                        de la programmation. N'hésitez pas à me faire des retours via mon formulaire sur des axes d'améliorations possibles.
                     </div>
                     <div className="mb-8 mt-8 leading-relaxed flex items-center justify-center text-gray">
                         Bonne navigation !!!
@@ -58,7 +59,7 @@ export default function About() {
                     <img
                         className="object-cover object-center rounded-full "
                         alt="moi"
-                        src={PhotoMe}
+                        src={Phototest}
                     />
                 </div>
             </div>

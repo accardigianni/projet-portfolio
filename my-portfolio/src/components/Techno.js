@@ -12,7 +12,7 @@ export default function Skills() {
                         Les Technologies
                     </h1>
                     <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-lightblue">
-                        Voici un aperçu des technologies dont j'ai eu besoins afin de réaliser ces différent projet.
+                        Voici un aperçu des technologies dont j'ai eu besoin afin de réaliser ces différents projets.
                     </p>
                 </div>
                 <Showtechnos />

@@ -42,13 +42,13 @@ export default function ContactMe() {
 
       </h2> */}
       <div className="leading-relaxed mb-5 ">
-        Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à ce mettre au service de votre structure, remplissez les champs suivants:
+        Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à se mettre au service de votre structure, remplissez les champs suivants:
         <br className='font-extralight' />
         Les champs suivis d'une * sont obligatoires
       </div>
 
 
-      <div className="relative mb-4 text-lightblue">
+      <div className="relative mb-4">
         <label htmlFor="name" className="leading-7 text-sm">
           Votre Nom *
         </label>
@@ -56,7 +56,7 @@ export default function ContactMe() {
           type="text"
           id="name"
           name="name"
-          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          className="w-full  rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
       </div>
       <div className="relative mb-4">
@@ -67,7 +67,7 @@ export default function ContactMe() {
           type="email"
           id="email"
           name="email"
-          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          className="w-full  rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
         <div className="relative mb-4">
           <label htmlFor="company" className="leading-7 text-sm">
@@ -79,7 +79,7 @@ export default function ContactMe() {
             name="tel"
             pattern="[0-9]*"
             maxLength="10"
-            className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            className="w-full  rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           />
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function ContactMe() {
         <textarea
           id="message"
           name="message"
-          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-100 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+          className="w-full bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
         />
       </div>
       <button

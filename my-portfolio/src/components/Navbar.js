@@ -8,7 +8,7 @@ export default function Navbar() {
     <header className="bg-gray md:sticky top-0 z-10">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <div className="title-font font-medium  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue rounded  mb-4 md:mb-0">
-          <a href="" className="ml-1 text-xl  text-s border-1 py-1 px-3  ">
+          <a href="#about" className="ml-1 text-xl  text-s border-1 py-1 px-3  ">
             Présentation
           </a>
         </div>
