@@ -7,11 +7,11 @@ export default function Skills() {
         <section id="techno" className="bg-gray">
             <div className="container px-5 py-10 mx-auto">
                 <div className="text-center mb-20">
-                    <ChipIcon className="w-10 inline-block mb-4" />
-                    <h1 className="sm:text-4xl text-3xl font-medium title-font text-snow mb-4">
+                    <ChipIcon className="w-10 inline-block mb-4 text-lightblue" />
+                    <h1 className="sm:text-4xl text-3xl font-medium title-font text-lightblue mb-4">
                         Les Technologies
                     </h1>
-                    <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-snow">
+                    <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-lightblue">
                         Voici un aperçu des technologies dont j'ai eu besoins afin de réaliser ces différent projet.
                     </p>
                 </div>

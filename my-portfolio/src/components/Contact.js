@@ -3,7 +3,7 @@ import ContactMe from "./Contactform";
 
 export default function Contact() {
     return (
-        <section id="contact" className="relative bg-rosy">
+        <section id="contact" className="relative bg-strongblue">
             <div className="container px-5 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
                 <div className="lg:w-2/3 md:w-1/2 bg-gray-900 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
                     <iframe
@@ -14,8 +14,8 @@ export default function Contact() {
                         style={{ filter: "opacity(0.7)" }}
                         src="https://www.google.com/maps/embed/v1/place?q=Nantes,+France&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
                     />
-                    <div className="bg-snow relative flex flex-wrap py-6 rounded shadow-md">
-                        <div className="lg:w-1/2 px-6">
+                    <div className="bg-gray relative flex flex-wrap py-6 rounded shadow-md text-lightblue">
+                        <div className="lg:w-1/2 px-6 ">
                             <h2 className="title-font font-semibold tracking-widest text-xs">
                                 ACCARDI Gianni
                             </h2>
