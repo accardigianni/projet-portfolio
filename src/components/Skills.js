@@ -11,7 +11,7 @@ export default function Skills() {
           Mes softs skills
         </h1>
         <div className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-strongblue">
-          Mes différents travaux m'ont appris que pour être un "bon" développeur, le savoir codé n'était pas suffisant, l'important se trouve peut être ailleurs
+          Mes différents travaux m'ont appris que pour être un "bon" développeur, le savoir codé n'était pas suffisant, l'important se trouve peut être ailleurs ...
         </div>
 
         <div className="container px-5 py-10 mx-auto">

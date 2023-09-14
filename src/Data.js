@@ -84,20 +84,50 @@ export const skills = [
     icon: social
   },
   {
-    name:"Mentorat",
+    name: "Mentorat",
     icon: mentorat
   }
 ];
 
 export const techno = [
-  "JavaScript",
-  "Typescript",
-  "PHP",
-  "React",
-  "Angular",
-  "Node",
-  "MongoDB",
-  "Mysql",
-  "Insomnia",
-  "Github",
+  {
+    name: "JavaScript",
+    link: "https://developer.mozilla.org/fr/docs/Web/JavaScript"
+  },
+  {
+    name: "Typescript",
+    link: "https://www.typescriptlang.org/"
+  },
+  {
+    name: "PHP",
+    link: "https://www.php.net/manual/fr/intro-whatis.php"
+  },
+  {
+    name: "React",
+    link: "https://fr.legacy.reactjs.org/"
+  },
+  {
+    name: "Angular",
+    link: "https://angular.io/"
+  },
+  {
+    name: "Node.js",
+    link: "https://nodejs.org/fr"
+  },
+  {
+    name: "MongoDB",
+    link: "https://www.mongodb.com/fr-fr"
+  },
+  {
+    name: "Mysql",
+    link: "https://www.mysql.com/fr/"
+  },
+  {
+    name: "Insomnia",
+    link: "https://insomnia.rest/products/insomnia"
+  },
+  {
+    name: "Git & Github",
+    link: "https://git-scm.com/"
+  },
 ];

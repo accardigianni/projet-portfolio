@@ -13,7 +13,7 @@ export default function ContactMe() {
     const nameInput = form.current.querySelector('#name');
     const emailInput = form.current.querySelector('#email');
     const telephoneInput = form.current.querySelector('#telephone');
-
+    // retire les espaces blanc des champs
     const nameValue = nameInput.value.trim();
     const emailValue = emailInput.value.trim();
     const telephoneValue = telephoneInput.value.trim()
