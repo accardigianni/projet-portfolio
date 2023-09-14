@@ -35,7 +35,7 @@ export default function About() {
                         collaborer avec une équipe et de m'adapter aux situations pouvant se présenter.
                         <br id="4" />
                         <br />
-                        Ce portfolio est évolutif et a pour but de présenter mes projets et de pouvoir mettre en avant mon travail et mes avancées dans le monde
+                        Ce portfolio est évolutif. Il a pour but de présenter mes projets, de pouvoir mettre en avant mon travail et mes avancées dans le monde
                         de la programmation. N'hésitez pas à me faire des retours via mon formulaire sur des axes d'améliorations possibles.
                     </div>
                     <div className="mb-8 mt-8 leading-relaxed flex items-center justify-center text-gray">

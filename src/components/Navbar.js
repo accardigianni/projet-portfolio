@@ -20,7 +20,7 @@ export default function Navbar() {
             Technologies
           </a>
           <a href="#skills" className="mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0">
-            Soft Skills
+            Compétences
           </a>
         </nav>
         <Download />

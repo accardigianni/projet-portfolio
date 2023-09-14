@@ -15,11 +15,11 @@ export default function Projects() {
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue">
                         Vous trouverez ci-dessous mes différents projets et réalisations.
                         Ces projets sont le résultat de travails de groupe ou personnel.
-                        J'ai ainsi pu saisir les différentes notions liées entre le Front-end et le Back-end, decouvrir différentes langages,
-                        comprendre l'enjeu certaines méthodes agiles afin de réaliser un MVP dans des délais plus ou moins restreint.
+                        J'ai ainsi pu saisir les différentes notions liées entre le Front-end et le Back-end, découvrir de nouveaux langages de programmation,
+                        comprendre l'enjeu de certaines méthodes agiles afin de réaliser un MVP dans des délais plus ou moins restreint.
                     </p>
                     <br />
-                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue">Cliquez sur une image afin d'avoir accès aux dépots github.
+                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue">Cliquez sur une image afin d'avoir accès aux dépots github et suivez les instruction du README.md
 
                     </p>
                 </div>
