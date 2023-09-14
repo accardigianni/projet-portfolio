@@ -17,11 +17,11 @@ export default function About() {
                         </div>
                     </div>
                     <div className="text-gray">
-                        <br id="1" className=" hidden lg:inline-block title-font " />
+                        <br id="1" className="lg:inline-block title-font " />
                         Je suis issue d'une formation comptable et commerciale. Après plusieurs années d'expériences
                         sédentaires et itinérantes, j'entreprends une reconversion dans les métiers liés à la programmation informatique.
                         Je suis en formation au sein d'
-                        <a href="https://adatechschool.fr/" className="text-strongblue font-bold hidden lg:inline-block title-font">
+                        <a href="https://adatechschool.fr/" className="text-strongblue font-bold lg:inline-block title-font">
                             Ada tech school
                         </a>
                         &nbsp;
@@ -29,7 +29,7 @@ export default function About() {
                         <br id="2" />
                         <br />
                         Je suis à la recherche d'un <span className="font-bold text-strongblue">contrat d'alternance</span> à partir d'<span className="font-bold text-strongblue">octobre 2023</span> afin de pouvoir valider un <span className="font-bold text-strongblue">Titre RNCP
-                            de niveau 6</span> et réintégrer le monde du travail.
+                            de niveau 6</span> et ainsi réintégrer le monde du travail.
                         <br id="3" />
                         Fort de mes expériences dans le milieu professionnel, j'ai l'habitude de
                         collaborer avec une équipe et de m'adapter aux situations pouvant se présenter.
