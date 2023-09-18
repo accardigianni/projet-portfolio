@@ -53841,7 +53841,7 @@ function Navbar(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createEle
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_Gianni_Accardi_pdf__ = __webpack_require__(477);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_Gianni_Accardi_pdf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__assets_Gianni_Accardi_pdf__);
-function Download(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:__WEBPACK_IMPORTED_MODULE_2__assets_Gianni_Accardi_pdf___default.a,target:"#blank",className:"inline-flex items-center bg-lightblue border-0 py-1 px-3 focus:outline-none hover:bg-strongblue hover:text-lightblue rounded text-base mt-4 md:mt-0"},"T\xE9l\xE9charger mon CV",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["d" /* FolderDownloadIcon */],{className:"w-5 h-5 ml-2"}));}
+function Download(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:__WEBPACK_IMPORTED_MODULE_2__assets_Gianni_Accardi_pdf___default.a,target:"#blank",className:"inline-flex items-center bg-lightblue border-0 py-1 px-3 focus:outline-none hover:bg-strongblue hover:text-lightblue rounded text-base mt-4 md:mt-0"},"T\xE9l\xE9charger mon CV PDF",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["d" /* FolderDownloadIcon */],{className:"w-5 h-5 ml-2"}));}
 
 /***/ }),
 /* 247 */
@@ -59257,4 +59257,4 @@ function Showtechnos(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.crea
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.b8849a49.js.map
+//# sourceMappingURL=main.e01938fe.js.map
