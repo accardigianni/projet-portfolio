@@ -9,12 +9,12 @@ export default function ShowProject() {
                 {projects.map((project) => (
                     <a
                         href={project.link}
-                        key={project.image}
+                        key={project.id}
                         target="#blank"
                         className="sm:w-1/2 w-full h-full p-4">
                         <div className="flex relative ">
                             <img
-                                alt="project description"
+                                alt={project.alt}
                                 className="absolute w-full h-full  object-cover object-center"
                                 src={project.image}
                             />

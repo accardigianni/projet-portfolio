@@ -49,7 +49,9 @@ export default function ContactMe() {
 
 
       <div className="relative mb-4">
-        <label htmlFor="name" className="leading-7 text-sm">
+        <label 
+        htmlFor="name" 
+        className="leading-7 text-sm">
           Votre Nom *
         </label>
         <input
@@ -60,7 +62,9 @@ export default function ContactMe() {
         />
       </div>
       <div className="relative mb-4">
-        <label htmlFor="email" className="leading-7 text-sm">
+        <label 
+        htmlFor="email" 
+        className="leading-7 text-sm">
           Votre email *
         </label>
         <input
@@ -70,7 +74,9 @@ export default function ContactMe() {
           className="w-full  rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         />
         <div className="relative mb-4">
-          <label htmlFor="company" className="leading-7 text-sm">
+          <label
+            htmlFor="telephone"
+            className="leading-7 text-sm">
             Votre numéro de téléphone *
           </label>
           <input

@@ -15,7 +15,7 @@ export default function Showtechnos() {
                         <div>
                             <div className="bg-strongblue rounded flex p-4 h-full items-center">
                                 <BadgeCheckIcon className="text-aquamarine w-6 h-6 flex-shrink-0 mr-4" />
-                                <div className="title-font font-medium text-lightblue">
+                                <div className="title-font font-medium text-lightblue   ">
                                     {technologies.name}
                                 </div>
                             </div>

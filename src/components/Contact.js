@@ -14,7 +14,7 @@ export default function Contact() {
                         style={{ filter: "opacity(0.7)" }}
                         src="https://www.google.com/maps/embed/v1/place?q=Nantes,+France&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
                     />
-                    <div className="bg-gray relative flex flex-wrap py-6 rounded shadow-md text-lightblue">
+                    <div className="bg-strongblue relative flex flex-wrap py-6 rounded shadow-md text-lightblue">
                         <div className="lg:w-1/2 px-6 ">
                             <h2 className="title-font font-semibold tracking-widest text-xs">
                                 ACCARDI Gianni
