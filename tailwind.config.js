@@ -8,7 +8,7 @@ module.exports = {
       taupe: '#8C5E58',
       aquamarine: '#A9F0D1',
       snow: '#FFF7F8',
-      gray: '#656565',
+      gray: '#3B3B3B',
       rosy: '#C99DA3',
       eggplant: '#996888',
       quartz: '#C0A9B0',
