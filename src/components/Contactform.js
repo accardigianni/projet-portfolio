@@ -38,9 +38,6 @@ export default function ContactMe() {
     <form ref={form} onSubmit={sendEmail}
       name="contact"
       className="text-lightblue lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-      {/* <h2 className="text-lightblue sm:text-4xl text-3xl mb-1 font-medium title-font">
-
-      </h2> */}
       <div className="leading-relaxed mb-5 ">
         Vous êtes à la recherche d'un étudiant en alternance motivé et prêt à se mettre au service de votre structure, remplissez les champs suivants:
         <br className='font-extralight' />

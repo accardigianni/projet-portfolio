@@ -1,7 +1,7 @@
 import React from "react";
-import photoHello from "../assets/hello.png"
-import photoSmile from "../assets/clin-doeil.png"
-import PhotoMe from "../assets/me2.jpg"
+import photoHello from "../assets/hello.png";
+import photoSmile from "../assets/clin-doeil.png";
+import PhotoMe from "../assets/me2.jpg";
 
 export default function About() {
     return (

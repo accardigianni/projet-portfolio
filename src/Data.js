@@ -17,7 +17,7 @@ export const projects = [
   //   description:
   //     "Site de présentation de personnages ",
   //   image: antikea,
-  //   link: "https://github.com/accardigianni/back-endProjetAntikea",
+  //   link: "",
   // },
   {
     title: "Antikea",
