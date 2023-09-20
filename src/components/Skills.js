@@ -4,7 +4,7 @@ import Showskill from "./Showskill";
 
 export default function Skills() {
   return (
-    <section id="skills" className="bg-lightblue">
+    <section id="skills" className="bg-gradient-to-r from-lightblue to-gray">
       <div className="container px-5 py-10 mx-auto text-center">
         <UsersIcon className="w-10 inline-block mb-4 text-strongblue" />
         <h1 className="sm:text-4xl text-3xl font-medium title-font text-strongblue mb-12">

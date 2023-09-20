@@ -13,9 +13,9 @@ export default function Showtechnos() {
                         target="#blank"
                         className="p-2 sm:w-1/4 w-full">
                         <div>
-                            <div className="bg-strongblue rounded flex p-4 h-full items-center">
+                            <div className="bg-strongblue rounded flex p-4 h-full items-center hover:bg-lightblue  text-lightblue hover:text-strongblue ">
                                 <BadgeCheckIcon className="text-green w-6 h-6 flex-shrink-0 mr-4" />
-                                <div className="title-font font-medium text-lightblue   ">
+                                <div className="title-font font-medium  ">
                                     {technologies.name}
                                 </div>
                             </div>

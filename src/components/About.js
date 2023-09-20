@@ -62,7 +62,7 @@ export default function About() {
                         <source srcSet={PhotoMe} type="image/png" />
                         <img
                             className="object-cover object-center rounded-full "
-                            alt="photo of me"
+                            alt="me"
                             src={PhotoMe}
                         />
                     </picture>

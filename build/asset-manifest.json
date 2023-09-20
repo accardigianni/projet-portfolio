@@ -1,13 +1,19 @@
 {
-  "main.css": "static/css/main.0c243455.css",
-  "main.css.map": "static/css/main.0c243455.css.map",
-  "main.js": "static/js/main.b8849a49.js",
-  "main.js.map": "static/js/main.b8849a49.js.map",
+  "main.css": "static/css/main.b3781776.css",
+  "main.css.map": "static/css/main.b3781776.css.map",
+  "main.js": "static/js/main.112878ba.js",
+  "main.js.map": "static/js/main.112878ba.js.map",
   "static\\media\\Gianni-Accardi.pdf": "static/media/Gianni-Accardi.0ce3294a.pdf",
   "static\\media\\antikea.gif": "static/media/antikea.f109bcff.gif",
+  "static\\media\\antikea.webp": "static/media/antikea.771cc8e1.webp",
   "static\\media\\dataVis.gif": "static/media/dataVis.0ddfefd8.gif",
+  "static\\media\\dataVis.webp": "static/media/dataVis.1cf9c045.webp",
   "static\\media\\game4ever.gif": "static/media/game4ever.6f53c103.gif",
+  "static\\media\\game4ever.webp": "static/media/game4ever.7ea34a10.webp",
   "static\\media\\me2.jpg": "static/media/me2.64805839.jpg",
+  "static\\media\\me2.webp": "static/media/me2.769807fc.webp",
   "static\\media\\morpion.gif": "static/media/morpion.f4bd3fc9.gif",
-  "static\\media\\pico8.gif": "static/media/pico8.60f09f94.gif"
+  "static\\media\\morpion.webp": "static/media/morpion.695de00b.webp",
+  "static\\media\\pico8.gif": "static/media/pico8.60f09f94.gif",
+  "static\\media\\pico8.webp": "static/media/pico8.3615d273.webp"
 }

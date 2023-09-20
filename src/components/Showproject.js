@@ -23,13 +23,13 @@ export default function ShowProject() {
                             />
                             </picture>
                             <div className="px-8 py-10 relative z-10 w-full border-4 border-aquamarine bg-gray opacity-0 hover:opacity-100">
-                                <h2 className="tracking-widest text-sm title-font font-medium text-aquamarine mb-1">
+                                <h2 className="tracking-widest text-sm title-font font-medium  mb-1">
                                     {project.subtitle}
                                 </h2>
-                                <h1 className="title-font text-lg font-medium text-aquamarine mb-3">
+                                <h1 className="title-font text-lg font-medium  mb-3">
                                     {project.title}
                                 </h1>
-                                <p className="leading-relaxed text-aquamarine">{project.description}</p>
+                                <p className="leading-relaxed ">{project.description}</p>
                             </div>
                         </div>
                     </a>
