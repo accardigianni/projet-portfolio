@@ -1,7 +1,8 @@
 import React from "react";
-import photoHello from "../assets/hello.png";
-import photoSmile from "../assets/clin-doeil.png";
-import PhotoMe from "../assets/me2.jpg";
+import photoHello from "../assets/png/hello.png";
+import photoSmile from "../assets/png/clin-doeil.png";
+import PhotoMe from "../assets/jpg/me2.jpg";
+import PhotoMewebp from "../assets/webp/me2.webp"
 
 export default function About() {
     return (
@@ -56,11 +57,15 @@ export default function About() {
                     </div>
                 </div>
                 <div className="lg:max-w-lg lg:w-2/5 md:w-1/2 w-5/6">
-                    <img
-                        className="object-cover object-center rounded-full "
-                        alt="moi"
-                        src={PhotoMe}
-                    />
+                    <picture>
+                        <source srcSet={PhotoMewebp} type="image/webp" />
+                        <source srcSet={PhotoMe} type="image/png" />
+                        <img
+                            className="object-cover object-center rounded-full "
+                            alt="photo of me"
+                            src={PhotoMe}
+                        />
+                    </picture>
                 </div>
             </div>
         </section >

@@ -1,6 +1,6 @@
 import React from "react";
 import { FolderDownloadIcon } from "@heroicons/react/solid";
-import CV from "../assets/Gianni-Accardi.pdf"
+import CV from "../assets/pdf/Gianni-Accardi.pdf"
 
 
 export default function Download() {

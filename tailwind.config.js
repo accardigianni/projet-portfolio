@@ -6,6 +6,7 @@ module.exports = {
       gray: '#3B3B3B',
       strongblue: '#0E2239',
       lightblue: '#B9D0E9',
+      green: '#31ED47',
       extend: {},
     }
   },
