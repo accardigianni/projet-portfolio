@@ -13,13 +13,13 @@ export default function About() {
                         <div className="title-font sm:text-4xl text-3xl mb-4 font-medium text-strongblue flex items-center justify-center">
                             <img src={photoHello} alt="hello" className="self-start mt-2 mr-1" />
                             <h1>
-                                Bonjour, je m'appelle Gianni et je suis étudiant en conception et développement web.
+                                Salut, je m'appelle Gianni et je suis étudiant en conception et développement web.
                             </h1>
                         </div>
                     </div>
                     <div className="text-gray">
                         <br id="1" className="lg:inline-block title-font " />
-                        Je suis issue d'une formation comptable et commerciale. Après plusieurs années d'expériences
+                        Je suis issu d'une formation comptable et commerciale. Après plusieurs années d'expériences
                         sédentaires et itinérantes, j'entreprends une reconversion dans les métiers liés à la programmation informatique.
                         Je suis en formation au sein d'
                         <a href="https://adatechschool.fr/" className="text-strongblue font-bold lg:inline-block title-font">
