@@ -1,8 +1,8 @@
 {
   "main.css": "static/css/main.b3781776.css",
   "main.css.map": "static/css/main.b3781776.css.map",
-  "main.js": "static/js/main.121ff1ae.js",
-  "main.js.map": "static/js/main.121ff1ae.js.map",
+  "main.js": "static/js/main.83455dda.js",
+  "main.js.map": "static/js/main.83455dda.js.map",
   "static\\media\\Gianni-Accardi.pdf": "static/media/Gianni-Accardi.0ce3294a.pdf",
   "static\\media\\antikea.gif": "static/media/antikea.f109bcff.gif",
   "static\\media\\antikea.webp": "static/media/antikea.771cc8e1.webp",
@@ -15,5 +15,6 @@
   "static\\media\\morpion.gif": "static/media/morpion.f4bd3fc9.gif",
   "static\\media\\morpion.webp": "static/media/morpion.695de00b.webp",
   "static\\media\\pico8.gif": "static/media/pico8.60f09f94.gif",
-  "static\\media\\pico8.webp": "static/media/pico8.3615d273.webp"
+  "static\\media\\pico8.webp": "static/media/pico8.3615d273.webp",
+  "static\\media\\workinprog.webp": "static/media/workinprog.05dfad80.webp"
 }
