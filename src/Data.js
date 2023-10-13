@@ -9,6 +9,7 @@ import dataviswebp from "./assets/webp/dataVis.webp";
 import game4everwebp from "./assets/webp/game4ever.webp";
 import antikeawebp from "./assets/webp/antikea.webp";
 import morpionwebp from "./assets/webp/morpion.webp";
+import workinprog from "./assets/webp/workinprog.webp"
 
 import adapt from "./assets/png/adaptation.png";
 import collab from "./assets/png/collaboration.png";
@@ -19,14 +20,16 @@ import mentorat from "./assets/png/mentorat.png";
 
 
 export const projects = [
-  // {
-  //   title: "Street fighter",
-  //   subtitle: "angular, typecsript",
-  //   description:
-  //     "Site de présentation de personnages ",
-  //   image: antikea,
-  //   link: "",
-  // },
+  {
+    title: "puissance 4 en 3D",
+    subtitle: "Java, Spring",
+    description:
+      "jeu de logique",
+    image: workinprog,
+    link: "https://github.com/accardigianni/Puissance-4-3D",
+    id: 6,
+    alt: "projet titre RNCP"
+  },
   {
     title: "Antikea",
     subtitle: "MongoDB, Node.js, Javascript, React et Bootstrap",
