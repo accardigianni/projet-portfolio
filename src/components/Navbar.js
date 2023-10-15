@@ -5,7 +5,7 @@ import Download from "./DownloadPDF"
 
 export default function Navbar() {
   return (
-    <header className="opacity-70 bg-gradient-to-r from-black to-gray sticky top-0 z-10 hover:opacity-100">
+    <header className="opacity-70 bg-gradient-to-r from-black to-gray sm:sticky top-0 z-10 hover:opacity-100">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center" aria-label="navigation bar">
         <nav className="md:ml-auto flex font-medium flex-wrap items-center justify-center ">
         <a href="#about" className=" mr-5  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1" aria-label="pésentation button ">

@@ -7034,12 +7034,12 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = Object.create(__webpack_require__(22));
+var util = Object.create(__webpack_require__(23));
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 var Readable = __webpack_require__(71);
-var Writable = __webpack_require__(40);
+var Writable = __webpack_require__(41);
 
 util.inherits(Duplex, Readable);
 
@@ -7856,433 +7856,6 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
 
 /***/ }),
 /* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var inherits = __webpack_require__(1)
-var MD5 = __webpack_require__(34)
-var RIPEMD160 = __webpack_require__(37)
-var sha = __webpack_require__(38)
-var Base = __webpack_require__(10)
-
-function Hash (hash) {
-  Base.call(this, 'digest')
-
-  this._hash = hash
-}
-
-inherits(Hash, Base)
-
-Hash.prototype._update = function (data) {
-  this._hash.update(data)
-}
-
-Hash.prototype._final = function () {
-  return this._hash.digest()
-}
-
-module.exports = function createHash (alg) {
-  alg = alg.toLowerCase()
-  if (alg === 'md5') return new MD5()
-  if (alg === 'rmd160' || alg === 'ripemd160') return new RIPEMD160()
-
-  return new Hash(sha(alg))
-}
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
-  }
-  return objectToString(arg) === '[object Array]';
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
-  var length = Math.min(a.length, b.length)
-  var buffer = new Buffer(length)
-
-  for (var i = 0; i < length; ++i) {
-    buffer[i] = a[i] ^ b[i]
-  }
-
-  return buffer
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(8);
-var assert = __webpack_require__(6);
-
-function BlockHash() {
-  this.pending = null;
-  this.pendingTotal = 0;
-  this.blockSize = this.constructor.blockSize;
-  this.outSize = this.constructor.outSize;
-  this.hmacStrength = this.constructor.hmacStrength;
-  this.padLength = this.constructor.padLength / 8;
-  this.endian = 'big';
-
-  this._delta8 = this.blockSize / 8;
-  this._delta32 = this.blockSize / 32;
-}
-exports.BlockHash = BlockHash;
-
-BlockHash.prototype.update = function update(msg, enc) {
-  // Convert message to array, pad it, and join into 32bit blocks
-  msg = utils.toArray(msg, enc);
-  if (!this.pending)
-    this.pending = msg;
-  else
-    this.pending = this.pending.concat(msg);
-  this.pendingTotal += msg.length;
-
-  // Enough data, try updating
-  if (this.pending.length >= this._delta8) {
-    msg = this.pending;
-
-    // Process pending data in blocks
-    var r = msg.length % this._delta8;
-    this.pending = msg.slice(msg.length - r, msg.length);
-    if (this.pending.length === 0)
-      this.pending = null;
-
-    msg = utils.join32(msg, 0, msg.length - r, this.endian);
-    for (var i = 0; i < msg.length; i += this._delta32)
-      this._update(msg, i, i + this._delta32);
-  }
-
-  return this;
-};
-
-BlockHash.prototype.digest = function digest(enc) {
-  this.update(this._pad());
-  assert(this.pending === null);
-
-  return this._digest(enc);
-};
-
-BlockHash.prototype._pad = function pad() {
-  var len = this.pendingTotal;
-  var bytes = this._delta8;
-  var k = bytes - ((len + this.padLength) % bytes);
-  var res = new Array(k + this.padLength);
-  res[0] = 0x80;
-  for (var i = 1; i < k; i++)
-    res[i] = 0;
-
-  // Append length
-  len <<= 3;
-  if (this.endian === 'big') {
-    for (var t = 8; t < this.padLength; t++)
-      res[i++] = 0;
-
-    res[i++] = 0;
-    res[i++] = 0;
-    res[i++] = 0;
-    res[i++] = 0;
-    res[i++] = (len >>> 24) & 0xff;
-    res[i++] = (len >>> 16) & 0xff;
-    res[i++] = (len >>> 8) & 0xff;
-    res[i++] = len & 0xff;
-  } else {
-    res[i++] = len & 0xff;
-    res[i++] = (len >>> 8) & 0xff;
-    res[i++] = (len >>> 16) & 0xff;
-    res[i++] = (len >>> 24) & 0xff;
-    res[i++] = 0;
-    res[i++] = 0;
-    res[i++] = 0;
-    res[i++] = 0;
-
-    for (t = 8; t < this.padLength; t++)
-      res[i++] = 0;
-  }
-
-  return res;
-};
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const inherits = __webpack_require__(1);
-const Reporter = __webpack_require__(54).Reporter;
-const Buffer = __webpack_require__(52).Buffer;
-
-function DecoderBuffer(base, options) {
-  Reporter.call(this, options);
-  if (!Buffer.isBuffer(base)) {
-    this.error('Input not Buffer');
-    return;
-  }
-
-  this.base = base;
-  this.offset = 0;
-  this.length = base.length;
-}
-inherits(DecoderBuffer, Reporter);
-exports.DecoderBuffer = DecoderBuffer;
-
-DecoderBuffer.isDecoderBuffer = function isDecoderBuffer(data) {
-  if (data instanceof DecoderBuffer) {
-    return true;
-  }
-
-  // Or accept compatible API
-  const isCompatible = typeof data === 'object' &&
-    Buffer.isBuffer(data.base) &&
-    data.constructor.name === 'DecoderBuffer' &&
-    typeof data.offset === 'number' &&
-    typeof data.length === 'number' &&
-    typeof data.save === 'function' &&
-    typeof data.restore === 'function' &&
-    typeof data.isEmpty === 'function' &&
-    typeof data.readUInt8 === 'function' &&
-    typeof data.skip === 'function' &&
-    typeof data.raw === 'function';
-
-  return isCompatible;
-};
-
-DecoderBuffer.prototype.save = function save() {
-  return { offset: this.offset, reporter: Reporter.prototype.save.call(this) };
-};
-
-DecoderBuffer.prototype.restore = function restore(save) {
-  // Return skipped data
-  const res = new DecoderBuffer(this.base);
-  res.offset = save.offset;
-  res.length = this.offset;
-
-  this.offset = save.offset;
-  Reporter.prototype.restore.call(this, save.reporter);
-
-  return res;
-};
-
-DecoderBuffer.prototype.isEmpty = function isEmpty() {
-  return this.offset === this.length;
-};
-
-DecoderBuffer.prototype.readUInt8 = function readUInt8(fail) {
-  if (this.offset + 1 <= this.length)
-    return this.base.readUInt8(this.offset++, true);
-  else
-    return this.error(fail || 'DecoderBuffer overrun');
-};
-
-DecoderBuffer.prototype.skip = function skip(bytes, fail) {
-  if (!(this.offset + bytes <= this.length))
-    return this.error(fail || 'DecoderBuffer overrun');
-
-  const res = new DecoderBuffer(this.base);
-
-  // Share reporter state
-  res._reporterState = this._reporterState;
-
-  res.offset = this.offset;
-  res.length = this.offset + bytes;
-  this.offset += bytes;
-  return res;
-};
-
-DecoderBuffer.prototype.raw = function raw(save) {
-  return this.base.slice(save ? save.offset : this.offset, this.length);
-};
-
-function EncoderBuffer(value, reporter) {
-  if (Array.isArray(value)) {
-    this.length = 0;
-    this.value = value.map(function(item) {
-      if (!EncoderBuffer.isEncoderBuffer(item))
-        item = new EncoderBuffer(item, reporter);
-      this.length += item.length;
-      return item;
-    }, this);
-  } else if (typeof value === 'number') {
-    if (!(0 <= value && value <= 0xff))
-      return reporter.error('non-byte EncoderBuffer value');
-    this.value = value;
-    this.length = 1;
-  } else if (typeof value === 'string') {
-    this.value = value;
-    this.length = Buffer.byteLength(value);
-  } else if (Buffer.isBuffer(value)) {
-    this.value = value;
-    this.length = value.length;
-  } else {
-    return reporter.error('Unsupported type: ' + typeof value);
-  }
-}
-exports.EncoderBuffer = EncoderBuffer;
-
-EncoderBuffer.isEncoderBuffer = function isEncoderBuffer(data) {
-  if (data instanceof EncoderBuffer) {
-    return true;
-  }
-
-  // Or accept compatible API
-  const isCompatible = typeof data === 'object' &&
-    data.constructor.name === 'EncoderBuffer' &&
-    typeof data.length === 'number' &&
-    typeof data.join === 'function';
-
-  return isCompatible;
-};
-
-EncoderBuffer.prototype.join = function join(out, offset) {
-  if (!out)
-    out = Buffer.alloc(this.length);
-  if (!offset)
-    offset = 0;
-
-  if (this.length === 0)
-    return out;
-
-  if (Array.isArray(this.value)) {
-    this.value.forEach(function(item) {
-      item.join(out, offset);
-      offset += item.length;
-    });
-  } else {
-    if (typeof this.value === 'number')
-      out[offset] = this.value;
-    else if (typeof this.value === 'string')
-      out.write(this.value, offset);
-    else if (Buffer.isBuffer(this.value))
-      this.value.copy(out, offset);
-    offset += this.length;
-  }
-
-  return out;
-};
-
-
-/***/ }),
-/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8615,7 +8188,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_163__PrinterIcon_js__ = __webpack_require__(411);
 /* unused harmony reexport PrinterIcon */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_164__PuzzleIcon_js__ = __webpack_require__(412);
-/* unused harmony reexport PuzzleIcon */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_164__PuzzleIcon_js__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_165__QrcodeIcon_js__ = __webpack_require__(413);
 /* unused harmony reexport QrcodeIcon */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_166__QuestionMarkCircleIcon_js__ = __webpack_require__(414);
@@ -8719,7 +8292,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_215__UserIcon_js__ = __webpack_require__(463);
 /* unused harmony reexport UserIcon */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_216__UsersIcon_js__ = __webpack_require__(464);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_216__UsersIcon_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_216__UsersIcon_js__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_217__VariableIcon_js__ = __webpack_require__(465);
 /* unused harmony reexport VariableIcon */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_218__VideoCameraIcon_js__ = __webpack_require__(466);
@@ -8975,6 +8548,433 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 
 
 
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var inherits = __webpack_require__(1)
+var MD5 = __webpack_require__(35)
+var RIPEMD160 = __webpack_require__(38)
+var sha = __webpack_require__(39)
+var Base = __webpack_require__(10)
+
+function Hash (hash) {
+  Base.call(this, 'digest')
+
+  this._hash = hash
+}
+
+inherits(Hash, Base)
+
+Hash.prototype._update = function (data) {
+  this._hash.update(data)
+}
+
+Hash.prototype._final = function () {
+  return this._hash.digest()
+}
+
+module.exports = function createHash (alg) {
+  alg = alg.toLowerCase()
+  if (alg === 'md5') return new MD5()
+  if (alg === 'rmd160' || alg === 'ripemd160') return new RIPEMD160()
+
+  return new Hash(sha(alg))
+}
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+
+function isArray(arg) {
+  if (Array.isArray) {
+    return Array.isArray(arg);
+  }
+  return objectToString(arg) === '[object Array]';
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = Buffer.isBuffer;
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {module.exports = function xor (a, b) {
+  var length = Math.min(a.length, b.length)
+  var buffer = new Buffer(length)
+
+  for (var i = 0; i < length; ++i) {
+    buffer[i] = a[i] ^ b[i]
+  }
+
+  return buffer
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(8);
+var assert = __webpack_require__(6);
+
+function BlockHash() {
+  this.pending = null;
+  this.pendingTotal = 0;
+  this.blockSize = this.constructor.blockSize;
+  this.outSize = this.constructor.outSize;
+  this.hmacStrength = this.constructor.hmacStrength;
+  this.padLength = this.constructor.padLength / 8;
+  this.endian = 'big';
+
+  this._delta8 = this.blockSize / 8;
+  this._delta32 = this.blockSize / 32;
+}
+exports.BlockHash = BlockHash;
+
+BlockHash.prototype.update = function update(msg, enc) {
+  // Convert message to array, pad it, and join into 32bit blocks
+  msg = utils.toArray(msg, enc);
+  if (!this.pending)
+    this.pending = msg;
+  else
+    this.pending = this.pending.concat(msg);
+  this.pendingTotal += msg.length;
+
+  // Enough data, try updating
+  if (this.pending.length >= this._delta8) {
+    msg = this.pending;
+
+    // Process pending data in blocks
+    var r = msg.length % this._delta8;
+    this.pending = msg.slice(msg.length - r, msg.length);
+    if (this.pending.length === 0)
+      this.pending = null;
+
+    msg = utils.join32(msg, 0, msg.length - r, this.endian);
+    for (var i = 0; i < msg.length; i += this._delta32)
+      this._update(msg, i, i + this._delta32);
+  }
+
+  return this;
+};
+
+BlockHash.prototype.digest = function digest(enc) {
+  this.update(this._pad());
+  assert(this.pending === null);
+
+  return this._digest(enc);
+};
+
+BlockHash.prototype._pad = function pad() {
+  var len = this.pendingTotal;
+  var bytes = this._delta8;
+  var k = bytes - ((len + this.padLength) % bytes);
+  var res = new Array(k + this.padLength);
+  res[0] = 0x80;
+  for (var i = 1; i < k; i++)
+    res[i] = 0;
+
+  // Append length
+  len <<= 3;
+  if (this.endian === 'big') {
+    for (var t = 8; t < this.padLength; t++)
+      res[i++] = 0;
+
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = (len >>> 24) & 0xff;
+    res[i++] = (len >>> 16) & 0xff;
+    res[i++] = (len >>> 8) & 0xff;
+    res[i++] = len & 0xff;
+  } else {
+    res[i++] = len & 0xff;
+    res[i++] = (len >>> 8) & 0xff;
+    res[i++] = (len >>> 16) & 0xff;
+    res[i++] = (len >>> 24) & 0xff;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+    res[i++] = 0;
+
+    for (t = 8; t < this.padLength; t++)
+      res[i++] = 0;
+  }
+
+  return res;
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const inherits = __webpack_require__(1);
+const Reporter = __webpack_require__(55).Reporter;
+const Buffer = __webpack_require__(53).Buffer;
+
+function DecoderBuffer(base, options) {
+  Reporter.call(this, options);
+  if (!Buffer.isBuffer(base)) {
+    this.error('Input not Buffer');
+    return;
+  }
+
+  this.base = base;
+  this.offset = 0;
+  this.length = base.length;
+}
+inherits(DecoderBuffer, Reporter);
+exports.DecoderBuffer = DecoderBuffer;
+
+DecoderBuffer.isDecoderBuffer = function isDecoderBuffer(data) {
+  if (data instanceof DecoderBuffer) {
+    return true;
+  }
+
+  // Or accept compatible API
+  const isCompatible = typeof data === 'object' &&
+    Buffer.isBuffer(data.base) &&
+    data.constructor.name === 'DecoderBuffer' &&
+    typeof data.offset === 'number' &&
+    typeof data.length === 'number' &&
+    typeof data.save === 'function' &&
+    typeof data.restore === 'function' &&
+    typeof data.isEmpty === 'function' &&
+    typeof data.readUInt8 === 'function' &&
+    typeof data.skip === 'function' &&
+    typeof data.raw === 'function';
+
+  return isCompatible;
+};
+
+DecoderBuffer.prototype.save = function save() {
+  return { offset: this.offset, reporter: Reporter.prototype.save.call(this) };
+};
+
+DecoderBuffer.prototype.restore = function restore(save) {
+  // Return skipped data
+  const res = new DecoderBuffer(this.base);
+  res.offset = save.offset;
+  res.length = this.offset;
+
+  this.offset = save.offset;
+  Reporter.prototype.restore.call(this, save.reporter);
+
+  return res;
+};
+
+DecoderBuffer.prototype.isEmpty = function isEmpty() {
+  return this.offset === this.length;
+};
+
+DecoderBuffer.prototype.readUInt8 = function readUInt8(fail) {
+  if (this.offset + 1 <= this.length)
+    return this.base.readUInt8(this.offset++, true);
+  else
+    return this.error(fail || 'DecoderBuffer overrun');
+};
+
+DecoderBuffer.prototype.skip = function skip(bytes, fail) {
+  if (!(this.offset + bytes <= this.length))
+    return this.error(fail || 'DecoderBuffer overrun');
+
+  const res = new DecoderBuffer(this.base);
+
+  // Share reporter state
+  res._reporterState = this._reporterState;
+
+  res.offset = this.offset;
+  res.length = this.offset + bytes;
+  this.offset += bytes;
+  return res;
+};
+
+DecoderBuffer.prototype.raw = function raw(save) {
+  return this.base.slice(save ? save.offset : this.offset, this.length);
+};
+
+function EncoderBuffer(value, reporter) {
+  if (Array.isArray(value)) {
+    this.length = 0;
+    this.value = value.map(function(item) {
+      if (!EncoderBuffer.isEncoderBuffer(item))
+        item = new EncoderBuffer(item, reporter);
+      this.length += item.length;
+      return item;
+    }, this);
+  } else if (typeof value === 'number') {
+    if (!(0 <= value && value <= 0xff))
+      return reporter.error('non-byte EncoderBuffer value');
+    this.value = value;
+    this.length = 1;
+  } else if (typeof value === 'string') {
+    this.value = value;
+    this.length = Buffer.byteLength(value);
+  } else if (Buffer.isBuffer(value)) {
+    this.value = value;
+    this.length = value.length;
+  } else {
+    return reporter.error('Unsupported type: ' + typeof value);
+  }
+}
+exports.EncoderBuffer = EncoderBuffer;
+
+EncoderBuffer.isEncoderBuffer = function isEncoderBuffer(data) {
+  if (data instanceof EncoderBuffer) {
+    return true;
+  }
+
+  // Or accept compatible API
+  const isCompatible = typeof data === 'object' &&
+    data.constructor.name === 'EncoderBuffer' &&
+    typeof data.length === 'number' &&
+    typeof data.join === 'function';
+
+  return isCompatible;
+};
+
+EncoderBuffer.prototype.join = function join(out, offset) {
+  if (!out)
+    out = Buffer.alloc(this.length);
+  if (!offset)
+    offset = 0;
+
+  if (this.length === 0)
+    return out;
+
+  if (Array.isArray(this.value)) {
+    this.value.forEach(function(item) {
+      item.join(out, offset);
+      offset += item.length;
+    });
+  } else {
+    if (typeof this.value === 'number')
+      out[offset] = this.value;
+    else if (typeof this.value === 'string')
+      out.write(this.value, offset);
+    else if (Buffer.isBuffer(this.value))
+      this.value.copy(out, offset);
+    offset += this.length;
+  }
+
+  return out;
+};
 
 
 /***/ }),
@@ -9281,7 +9281,7 @@ module.exports.AES = AES
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(2).Buffer
-var MD5 = __webpack_require__(34)
+var MD5 = __webpack_require__(35)
 
 /* eslint-disable camelcase */
 function EVP_BytesToKey (password, salt, keyBits, ivLen) {
@@ -9722,7 +9722,7 @@ BasePoint.prototype.dblp = function dblp(k) {
 var asn1 = __webpack_require__(226)
 var aesid = __webpack_require__(234)
 var fixProc = __webpack_require__(235)
-var ciphers = __webpack_require__(42)
+var ciphers = __webpack_require__(43)
 var compat = __webpack_require__(78)
 var Buffer = __webpack_require__(2).Buffer
 module.exports = parseKeys
@@ -9830,6 +9830,51 @@ function decrypt (data, password) {
 
 /***/ }),
 /* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return projects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return personalProjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return skills; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return techno; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif__ = __webpack_require__(484);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp__ = __webpack_require__(486);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp__ = __webpack_require__(488);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp__ = __webpack_require__(489);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp__ = __webpack_require__(490);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp__ = __webpack_require__(491);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png__ = __webpack_require__(492);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png__ = __webpack_require__(493);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png__ = __webpack_require__(494);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png__ = __webpack_require__(495);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png__ = __webpack_require__(497);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png__);
+var projects=[{title:"Antikea",subtitle:"MongoDB, Node.js, Javascript, React et Bootstrap",description:"Site de vente de meuble de seconde main ",image:__WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp___default.a,link:"https://github.com/accardigianni/back-endProjetAntikea",id:1,alt:"projet back end / front end "},{title:"Game4Ever",subtitle:"MAMP, mySQL, PHP, HTML et CSS",description:"Site réseau social type \"Facebook\" orienter jeux vidéos",image:__WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---reseau-social-php-game4ever",id:2,alt:"projet backend"},{title:"Dataviz",subtitle:"Javascript",description:"Visualisation des données API de la TAN",image:__WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---dataviz-api-il-va-faire-tout-noir",id:3,alt:"projet découverte api"},{title:"Jeux video rétro",subtitle:"Pico-8 et LUA",description:"Un petit jeu d'aventure",image:__WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---pico8-les-mousquetaires",id:5,alt:"projet jeux video type zelda"}];var personalProjects=[{title:"puissance 4 en 3D",subtitle:"Java, Spring",description:"jeu de logique",image:__WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp___default.a,link:"https://github.com/accardigianni/Puissance-4-3D",id:6,alt:"projet titre RNCP"},{title:"Morpion",subtitle:"Typescript et angular",description:"Petit jeu de morpion, qui seras le plus grand stratège",image:__WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp___default.a,link:"https://github.com/accardigianni/projets-morpions",id:4,alt:"projet framework angular"}];var skills=[{name:"Travail d'équipe",icon:__WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png___default.a,id:1,alt:"team work"},{name:"Adaptabilité",icon:__WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png___default.a,id:2,alt:"adaptability"},{name:"Curiosité",icon:__WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png___default.a,id:3,alt:"curiosity"},{name:"Engagement",icon:__WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png___default.a,id:4,alt:"commitment"},{name:"Sociabilité",icon:__WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png___default.a,id:5,alt:"sociability"},{name:"Mentorat",icon:__WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png___default.a,id:6,alt:"mentoring"}];var techno=[{name:"JavaScript",link:"https://developer.mozilla.org/fr/docs/Web/JavaScript",alt:"JavaScript"},{name:"Typescript",link:"https://www.typescriptlang.org/",alt:"Typescript"},{name:"Java",link:"https://www.java.com/fr/",alt:"Java"},{name:"PHP",link:"https://www.php.net/manual/fr/intro-whatis.php",alt:"PHP"},{name:"React",link:"https://fr.legacy.reactjs.org/",alt:"React"},{name:"Angular",link:"https://angular.io/",alt:"Angular"},{name:"Node.js",link:"https://nodejs.org/fr",alt:"Node.js"},{name:"MongoDB",link:"https://www.mongodb.com/fr-fr",alt:"MongoDB"},{name:"Mysql",link:"https://www.mysql.com/fr/",alt:"Mysql"},{name:"Spring",link:"https://spring.io/",alt:"Spring"},{name:"Insomnia",link:"https://insomnia.rest/products/insomnia",alt:"Insomnia"},{name:"Git & Github",link:"https://git-scm.com/",alt:"git and github"}];
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9926,7 +9971,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10079,7 +10124,7 @@ module.exports = MD5
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -10153,7 +10198,7 @@ function config (name) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10263,7 +10308,7 @@ function eos(stream, opts, callback) {
 module.exports = eos;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10433,7 +10478,7 @@ module.exports = RIPEMD160
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var exports = module.exports = function SHA (algorithm) {
@@ -10454,20 +10499,20 @@ exports.sha512 = __webpack_require__(70)
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(71);
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(40);
+exports.Writable = __webpack_require__(41);
 exports.Duplex = __webpack_require__(13);
 exports.Transform = __webpack_require__(74);
 exports.PassThrough = __webpack_require__(166);
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10537,13 +10582,13 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = Object.create(__webpack_require__(22));
+var util = Object.create(__webpack_require__(23));
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(35)
+  deprecate: __webpack_require__(36)
 };
 /*</replacement>*/
 
@@ -11161,7 +11206,7 @@ Writable.prototype._destroy = function (err, cb) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(164).setImmediate, __webpack_require__(5)))
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11309,7 +11354,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ciphers = __webpack_require__(179)
@@ -11328,7 +11373,7 @@ exports.listCiphers = exports.getCiphers = getCiphers
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var modeModules = {
@@ -11352,7 +11397,7 @@ module.exports = modes
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var r;
@@ -11423,7 +11468,7 @@ if (typeof self === 'object') {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
@@ -11494,7 +11539,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11604,10 +11649,10 @@ function eos(stream, opts, callback) {
 module.exports = eos;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(48)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var BN = __webpack_require__(49)
 var randomBytes = __webpack_require__(15)
 
 function blind (priv) {
@@ -11646,7 +11691,7 @@ module.exports = crt
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -15200,7 +15245,7 @@ module.exports = crt
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)(module)))
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15210,9 +15255,9 @@ var elliptic = exports;
 
 elliptic.version = __webpack_require__(207).version;
 elliptic.utils = __webpack_require__(7);
-elliptic.rand = __webpack_require__(44);
+elliptic.rand = __webpack_require__(45);
 elliptic.curve = __webpack_require__(100);
-elliptic.curves = __webpack_require__(50);
+elliptic.curves = __webpack_require__(51);
 
 // Protocols
 elliptic.ec = __webpack_require__(219);
@@ -15220,7 +15265,7 @@ elliptic.eddsa = __webpack_require__(223);
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15228,7 +15273,7 @@ elliptic.eddsa = __webpack_require__(223);
 
 var curves = exports;
 
-var hash = __webpack_require__(51);
+var hash = __webpack_require__(52);
 var curve = __webpack_require__(100);
 var utils = __webpack_require__(7);
 
@@ -15433,13 +15478,13 @@ defineCurve('secp256k1', {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var hash = exports;
 
 hash.utils = __webpack_require__(8);
-hash.common = __webpack_require__(24);
+hash.common = __webpack_require__(25);
 hash.sha = __webpack_require__(212);
 hash.ripemd = __webpack_require__(216);
 hash.hmac = __webpack_require__(217);
@@ -15454,7 +15499,7 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15539,15 +15584,15 @@ module.exports = safer
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const Reporter = __webpack_require__(54).Reporter;
-const EncoderBuffer = __webpack_require__(25).EncoderBuffer;
-const DecoderBuffer = __webpack_require__(25).DecoderBuffer;
+const Reporter = __webpack_require__(55).Reporter;
+const EncoderBuffer = __webpack_require__(26).EncoderBuffer;
+const DecoderBuffer = __webpack_require__(26).DecoderBuffer;
 const assert = __webpack_require__(6);
 
 // Supported tags
@@ -16184,7 +16229,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16314,7 +16359,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16379,7 +16424,7 @@ exports.tagByName = reverse(exports.tag);
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -19832,50 +19877,6 @@ exports.tagByName = reverse(exports.tag);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)(module)))
 
 /***/ }),
-/* 57 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return projects; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return skills; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return techno; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif__ = __webpack_require__(481);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif__ = __webpack_require__(482);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif__ = __webpack_require__(483);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp__ = __webpack_require__(487);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp__ = __webpack_require__(488);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp__ = __webpack_require__(489);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp__ = __webpack_require__(490);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp__ = __webpack_require__(491);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png__ = __webpack_require__(492);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png__ = __webpack_require__(493);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png__ = __webpack_require__(494);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png__ = __webpack_require__(495);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png__ = __webpack_require__(496);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png__ = __webpack_require__(497);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png__);
-var projects=[{title:"puissance 4 en 3D",subtitle:"Java, Spring",description:"jeu de logique",image:__WEBPACK_IMPORTED_MODULE_10__assets_webp_workinprog_webp___default.a,link:"https://github.com/accardigianni/Puissance-4-3D",id:6,alt:"projet titre RNCP"},{title:"Antikea",subtitle:"MongoDB, Node.js, Javascript, React et Bootstrap",description:"Site de vente de meuble de seconde main ",image:__WEBPACK_IMPORTED_MODULE_3__assets_gif_antikea_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_8__assets_webp_antikea_webp___default.a,link:"https://github.com/accardigianni/back-endProjetAntikea",id:1,alt:"projet back end / front end "},{title:"Game4Ever",subtitle:"MAMP, mySQL, PHP, HTML et CSS",description:"Site réseau social type \"Facebook\" orienter jeux vidéos",image:__WEBPACK_IMPORTED_MODULE_2__assets_gif_game4ever_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_7__assets_webp_game4ever_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---reseau-social-php-game4ever",id:2,alt:"projet backend"},{title:"Dataviz",subtitle:"Javascript",description:"Visualisation des données API de la TAN",image:__WEBPACK_IMPORTED_MODULE_1__assets_gif_dataVis_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_6__assets_webp_dataVis_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---dataviz-api-il-va-faire-tout-noir",id:3,alt:"projet découverte api"},{title:"Morpion",subtitle:"Typescript et angular",description:"Petit jeu de morpion, qui seras le plus grand stratège",image:__WEBPACK_IMPORTED_MODULE_4__assets_gif_morpion_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_9__assets_webp_morpion_webp___default.a,link:"https://github.com/accardigianni/projets-morpions",id:4,alt:"projet framework angular"},{title:"Jeux video rétro",subtitle:"Pico-8 et LUA",description:"Un petit jeu d'aventure",image:__WEBPACK_IMPORTED_MODULE_0__assets_gif_pico8_gif___default.a,webp:__WEBPACK_IMPORTED_MODULE_5__assets_webp_pico8_webp___default.a,link:"https://github.com/accardigianni/projet-collectif---pico8-les-mousquetaires",id:5,alt:"projet jeux video type zelda"}];var skills=[{name:"Travail d'équipe",icon:__WEBPACK_IMPORTED_MODULE_12__assets_png_collaboration_png___default.a,id:1,alt:"team work"},{name:"Adaptabilité",icon:__WEBPACK_IMPORTED_MODULE_11__assets_png_adaptation_png___default.a,id:2,alt:"adaptability"},{name:"Curiosité",icon:__WEBPACK_IMPORTED_MODULE_13__assets_png_curieux_png___default.a,id:3,alt:"curiosity"},{name:"Engagement",icon:__WEBPACK_IMPORTED_MODULE_14__assets_png_engagement_png___default.a,id:4,alt:"commitment"},{name:"Sociabilité",icon:__WEBPACK_IMPORTED_MODULE_15__assets_png_sociable_png___default.a,id:5,alt:"sociability"},{name:"Mentorat",icon:__WEBPACK_IMPORTED_MODULE_16__assets_png_mentorat_png___default.a,id:6,alt:"mentoring"}];var techno=[{name:"JavaScript",link:"https://developer.mozilla.org/fr/docs/Web/JavaScript",alt:"JavaScript"},{name:"Typescript",link:"https://www.typescriptlang.org/",alt:"Typescript"},{name:"PHP",link:"https://www.php.net/manual/fr/intro-whatis.php",alt:"PHP"},{name:"React",link:"https://fr.legacy.reactjs.org/",alt:"React"},{name:"Angular",link:"https://angular.io/",alt:"Angular"},{name:"Node.js",link:"https://nodejs.org/fr",alt:"Node.js"},{name:"MongoDB",link:"https://www.mongodb.com/fr-fr",alt:"MongoDB"},{name:"Mysql",link:"https://www.mysql.com/fr/",alt:"Mysql"},{name:"Insomnia",link:"https://insomnia.rest/products/insomnia",alt:"Insomnia"},{name:"Git & Github",link:"https://git-scm.com/",alt:"git and github"}];
-
-/***/ }),
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21611,7 +21612,7 @@ Writable.WritableState = WritableState;
 /*<replacement>*/
 
 var internalUtil = {
-  deprecate: __webpack_require__(35)
+  deprecate: __webpack_require__(36)
 };
 /*</replacement>*/
 
@@ -22936,7 +22937,7 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = Object.create(__webpack_require__(22));
+var util = Object.create(__webpack_require__(23));
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -24053,7 +24054,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(13);
 
 /*<replacement>*/
-var util = Object.create(__webpack_require__(22));
+var util = Object.create(__webpack_require__(23));
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -24209,9 +24210,9 @@ var Legacy = __webpack_require__(171)
 var Base = __webpack_require__(10)
 var Buffer = __webpack_require__(2).Buffer
 var md5 = __webpack_require__(76)
-var RIPEMD160 = __webpack_require__(37)
+var RIPEMD160 = __webpack_require__(38)
 
-var sha = __webpack_require__(38)
+var sha = __webpack_require__(39)
 
 var ZEROS = Buffer.alloc(128)
 
@@ -24271,7 +24272,7 @@ module.exports = function createHmac (alg, key) {
 /* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MD5 = __webpack_require__(34)
+var MD5 = __webpack_require__(35)
 
 module.exports = function (buffer) {
   return new MD5().update(buffer).digest()
@@ -24341,8 +24342,8 @@ module.exports = defaultEncoding
 /***/ (function(module, exports, __webpack_require__) {
 
 var md5 = __webpack_require__(76)
-var RIPEMD160 = __webpack_require__(37)
-var sha = __webpack_require__(38)
+var RIPEMD160 = __webpack_require__(38)
+var sha = __webpack_require__(39)
 var Buffer = __webpack_require__(2).Buffer
 
 var checkParameters = __webpack_require__(79)
@@ -24740,7 +24741,7 @@ var assert = __webpack_require__(6);
 var inherits = __webpack_require__(1);
 
 var utils = __webpack_require__(83);
-var Cipher = __webpack_require__(41);
+var Cipher = __webpack_require__(42);
 
 function DESState() {
   this.tmp = new Array(2);
@@ -24882,7 +24883,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var xor = __webpack_require__(23)
+var xor = __webpack_require__(24)
 var Buffer = __webpack_require__(2).Buffer
 var incr32 = __webpack_require__(86)
 
@@ -24950,7 +24951,7 @@ var Buffer = __webpack_require__(2).Buffer
 var Transform = __webpack_require__(10)
 var inherits = __webpack_require__(1)
 var GHASH = __webpack_require__(186)
-var xor = __webpack_require__(23)
+var xor = __webpack_require__(24)
 var incr32 = __webpack_require__(86)
 
 function xorTest (a, b) {
@@ -28666,7 +28667,7 @@ function findPrime(bits, gen) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var bn = __webpack_require__(191);
-var brorand = __webpack_require__(44);
+var brorand = __webpack_require__(45);
 
 function MillerRabin(rand) {
   this.rand = rand || new brorand.Rand();
@@ -30129,7 +30130,7 @@ Writable.WritableState = WritableState;
 /*<replacement>*/
 
 var internalUtil = {
-  deprecate: __webpack_require__(35)
+  deprecate: __webpack_require__(36)
 };
 /*</replacement>*/
 
@@ -31120,7 +31121,7 @@ exports.g1_256 = g1_256;
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(24);
+var common = __webpack_require__(25);
 var shaCommon = __webpack_require__(101);
 var assert = __webpack_require__(6);
 
@@ -31232,7 +31233,7 @@ SHA256.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(24);
+var common = __webpack_require__(25);
 var assert = __webpack_require__(6);
 
 var rotr64_hi = utils.rotr64_hi;
@@ -35053,11 +35054,11 @@ encoders.pem = __webpack_require__(229);
 
 
 const inherits = __webpack_require__(1);
-const Buffer = __webpack_require__(52).Buffer;
-const Node = __webpack_require__(53);
+const Buffer = __webpack_require__(53).Buffer;
+const Node = __webpack_require__(54);
 
 // Import DER constants
-const der = __webpack_require__(55);
+const der = __webpack_require__(56);
 
 function DEREncoder(entity) {
   this.enc = 'der';
@@ -35370,11 +35371,11 @@ decoders.pem = __webpack_require__(230);
 const inherits = __webpack_require__(1);
 
 const bignum = __webpack_require__(105);
-const DecoderBuffer = __webpack_require__(25).DecoderBuffer;
-const Node = __webpack_require__(53);
+const DecoderBuffer = __webpack_require__(26).DecoderBuffer;
+const Node = __webpack_require__(54);
 
 // Import DER constants
-const der = __webpack_require__(55);
+const der = __webpack_require__(56);
 
 function DERDecoder(entity) {
   this.enc = 'der';
@@ -35712,7 +35713,7 @@ module.exports = {"1.3.132.0.10":"secp256k1","1.3.132.0.33":"p224","1.2.840.1004
 /* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createHash = __webpack_require__(21)
+var createHash = __webpack_require__(22)
 var Buffer = __webpack_require__(2).Buffer
 
 module.exports = function (seed, len) {
@@ -35751,7 +35752,7 @@ module.exports = function xor (a, b) {
 /* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var BN = __webpack_require__(56)
+var BN = __webpack_require__(57)
 var Buffer = __webpack_require__(2).Buffer
 
 function withPublic (paddedMsg, key) {
@@ -35801,7 +35802,7 @@ __webpack_require__(119);
 
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
-Object.assign = __webpack_require__(33);
+Object.assign = __webpack_require__(34);
 
 // In tests, polyfill requestAnimationFrame since jsdom doesn't provide it yet.
 // We don't polyfill it in the browser--this is user's responsibility.
@@ -36769,7 +36770,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var l=__webpack_require__(33),n=60103,p=60106;exports.Fragment=60107;exports.StrictMode=60108;exports.Profiler=60114;var q=60109,r=60110,t=60112;exports.Suspense=60113;var u=60115,v=60116;
+var l=__webpack_require__(34),n=60103,p=60106;exports.Fragment=60107;exports.StrictMode=60108;exports.Profiler=60114;var q=60109,r=60110,t=60112;exports.Suspense=60113;var u=60115,v=60116;
 if("function"===typeof Symbol&&Symbol.for){var w=Symbol.for;n=w("react.element");p=w("react.portal");exports.Fragment=w("react.fragment");exports.StrictMode=w("react.strict_mode");exports.Profiler=w("react.profiler");q=w("react.provider");r=w("react.context");t=w("react.forward_ref");exports.Suspense=w("react.suspense");u=w("react.memo");v=w("react.lazy")}var x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){if(null===a||"object"!==typeof a)return null;a=x&&a[x]||a["@@iterator"];return"function"===typeof a?a:null}function z(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}
 var A={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},B={};function C(a,b,c){this.props=a;this.context=b;this.refs=B;this.updater=c||A}C.prototype.isReactComponent={};C.prototype.setState=function(a,b){if("object"!==typeof a&&"function"!==typeof a&&null!=a)throw Error(z(85));this.updater.enqueueSetState(this,a,b,"setState")};C.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
@@ -36847,7 +36848,7 @@ if (true) {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),m=__webpack_require__(33),r=__webpack_require__(124);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
+var aa=__webpack_require__(0),m=__webpack_require__(34),r=__webpack_require__(124);function y(a){for(var b="https://reactjs.org/docs/error-decoder.html?invariant="+a,c=1;c<arguments.length;c++)b+="&args[]="+encodeURIComponent(arguments[c]);return"Minified React error #"+a+"; visit "+b+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}if(!aa)throw Error(y(227));var ba=new Set,ca={};function da(a,b){ea(a,b);ea(a+"Capture",b)}
 function ea(a,b){ca[a]=b;for(a=0;a<b.length;a++)ba.add(b[a])}
 var fa=!("undefined"===typeof window||"undefined"===typeof window.document||"undefined"===typeof window.document.createElement),ha=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,ia=Object.prototype.hasOwnProperty,
 ja={},ka={};function la(a){if(ia.call(ka,a))return!0;if(ia.call(ja,a))return!1;if(ha.test(a))return ka[a]=!0;ja[a]=!0;return!1}function ma(a,b,c,d){if(null!==c&&0===c.type)return!1;switch(typeof b){case "function":case "symbol":return!0;case "boolean":if(d)return!1;if(null!==c)return!c.acceptsBooleans;a=a.toLowerCase().slice(0,5);return"data-"!==a&&"aria-"!==a;default:return!1}}
@@ -37194,9 +37195,10 @@ exports.unstable_wrapCallback=function(a){var b=P;return function(){var c=P;P=b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Contact__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Navbar__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Projects__ = __webpack_require__(479);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Skills__ = __webpack_require__(498);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Techno__ = __webpack_require__(500);
-function App(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("main",{className:"text-gray-400 body-font"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Navbar__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_About__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Projects__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Techno__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Skills__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Contact__["a" /* default */],null));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_PersonalProject__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Skills__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Techno__ = __webpack_require__(502);
+function App(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("main",{className:"text-gray-400 body-font"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Navbar__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_About__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"separator-bar h-2 bg-gradient-to-r from-lightblue to-gray"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Projects__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"separator-bar h-2 bg-gradient-to-r from-lightblue to-gray"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_PersonalProject__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"separator-bar h-2 bg-gradient-to-r from-white to-lightblue"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_Techno__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Skills__["a" /* default */],null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"separator-bar h-2 bg-gradient-to-r from-white to-lightblue"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Contact__["a" /* default */],null));}
 
 /***/ }),
 /* 128 */
@@ -37214,7 +37216,7 @@ function App(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElemen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_webp_me2_webp__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_webp_me2_webp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__assets_webp_me2_webp__);
-function About(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"about",className:"bg-lightblue"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container mx-auto flex px-10 py-20 md:flex-row flex-col items-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex items-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"title-font sm:text-4xl text-3xl mb-4 font-medium text-strongblue flex items-center justify-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{src:__WEBPACK_IMPORTED_MODULE_1__assets_png_hello_png___default.a,alt:"hello",className:"self-start mt-2 mr-1"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",null,"Salut, je m'appelle Gianni et je suis \xE9tudiant en conception et d\xE9veloppement web."))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"text-gray"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"1",className:"lg:inline-block title-font "}),"Je suis issu d'une formation comptable et commerciale. Apr\xE8s plusieurs ann\xE9es d'exp\xE9riences s\xE9dentaires et itin\xE9rantes, j'entreprends une reconversion dans les m\xE9tiers li\xE9s \xE0 la programmation informatique. Je suis en formation au sein d'",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"https://adatechschool.fr/",className:"text-strongblue font-bold lg:inline-block title-font"},"Ada tech school"),"\xA0 qui applique les principes de la m\xE9thode Montessori consistant \xE0 apprendre par la r\xE9alisation de projet.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"2"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",null),"Je suis \xE0 la recherche d'un ",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"contrat d'alternance")," \xE0 partir d'",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"octobre 2023")," afin de pouvoir valider un ",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"Titre RNCP de niveau 6")," et ainsi r\xE9int\xE9grer le monde du travail.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"3"}),"Fort de mes exp\xE9riences dans le milieu professionnel, j'ai l'habitude de collaborer avec une \xE9quipe et de m'adapter aux situations pouvant se pr\xE9senter.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"4"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",null),"Ce portfolio est \xE9volutif. Il a pour but de pr\xE9senter mes projets, de pouvoir mettre en avant mon travail et mes avanc\xE9es dans le monde de la programmation. N'h\xE9sitez pas \xE0 me faire des retours via mon formulaire sur des axes d'am\xE9liorations possibles."),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"mb-8 mt-8 leading-relaxed flex items-center justify-center text-gray"},"Bonne navigation !!!",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{src:__WEBPACK_IMPORTED_MODULE_2__assets_png_clin_doeil_png___default.a,alt:"smile",className:"mb-8 leading-relaxed self-start ml-4 mt-5"})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex justify-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#contact",className:"inline-flex text-lightblue bg-strongblue border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg"},"Formulaire de contact"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#projects",className:"ml-4 inline-flex text-lightblue bg-strongblue border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg"},"Pr\xE9sentation des projets"))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"lg:max-w-lg lg:w-2/5 md:w-1/2 w-5/6"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("picture",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:__WEBPACK_IMPORTED_MODULE_4__assets_webp_me2_webp___default.a,type:"image/webp"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:__WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg___default.a,type:"image/png"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{className:"object-cover object-center rounded-full ",alt:"me",src:__WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg___default.a})))));}
+function About(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"about",className:"bg-lightblue hover:opacity-100"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex items-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"title-font sm:text-4xl text-3xl mb-4 font-medium text-strongblue flex items-center justify-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{src:__WEBPACK_IMPORTED_MODULE_1__assets_png_hello_png___default.a,alt:"hello",className:"self-start mt-2 mr-1"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",null,"Salut, Moi c'est Gianni et je suis \xE9tudiant en conception et d\xE9veloppement web."))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"text-gray"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"1",className:"lg:inline-block title-font "}),"Je suis issu d'une formation comptable et commerciale. Apr\xE8s plusieurs ann\xE9es d'exp\xE9riences s\xE9dentaires et itin\xE9rantes, j'entreprends une reconversion dans les m\xE9tiers li\xE9s \xE0 la programmation informatique. Je suis en formation au sein d'",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"https://adatechschool.fr/",className:"text-strongblue font-bold lg:inline-block title-font"},"Ada tech school"),"\xA0 qui applique les principes de la m\xE9thode Montessori consistant \xE0 apprendre par la r\xE9alisation de projet.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"2"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",null),"Je suis \xE0 la recherche d'un ",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"contrat d'alternance")," \xE0 partir d'",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"octobre 2023")," afin de pouvoir valider un ",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"font-bold text-strongblue"},"Titre RNCP de niveau 6")," et ainsi r\xE9int\xE9grer le monde du travail.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"3"}),"Fort de mes exp\xE9riences dans le milieu professionnel, j'ai l'habitude de collaborer avec une \xE9quipe et de m'adapter aux situations pouvant se pr\xE9senter.",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",{id:"4"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",null),"Ce portfolio est \xE9volutif. Il a pour but de pr\xE9senter mes projets, de pouvoir mettre en avant mon travail et mes avanc\xE9es dans le monde de la programmation. N'h\xE9sitez pas \xE0 me faire des retours via mon formulaire sur des axes d'am\xE9liorations possibles."),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"mb-8 mt-8 leading-relaxed flex items-center justify-center text-gray"},"Bonne navigation !!!",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{src:__WEBPACK_IMPORTED_MODULE_2__assets_png_clin_doeil_png___default.a,alt:"smile",className:"mb-8 leading-relaxed self-start ml-4 mt-5"}))),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"lg:max-w-lg lg:w-2/5 md:w-1/2 w-5/6"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("picture",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:__WEBPACK_IMPORTED_MODULE_4__assets_webp_me2_webp___default.a,type:"image/webp"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:__WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg___default.a,type:"image/png"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{className:"object-cover object-center rounded-full ",alt:"me",src:__WEBPACK_IMPORTED_MODULE_3__assets_jpg_me2_jpg___default.a})))));}
 
 /***/ }),
 /* 129 */
@@ -38353,7 +38355,7 @@ exports.homedir = function () {
 
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = __webpack_require__(15)
-exports.createHash = exports.Hash = __webpack_require__(21)
+exports.createHash = exports.Hash = __webpack_require__(22)
 exports.createHmac = exports.Hmac = __webpack_require__(75)
 
 var algos = __webpack_require__(172)
@@ -38531,7 +38533,7 @@ exports.Writable = __webpack_require__(67);
 exports.Duplex = __webpack_require__(17);
 exports.Transform = __webpack_require__(68);
 exports.PassThrough = __webpack_require__(154);
-exports.finished = __webpack_require__(36);
+exports.finished = __webpack_require__(37);
 exports.pipeline = __webpack_require__(155);
 
 
@@ -38774,7 +38776,7 @@ var _Object$setPrototypeO;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var finished = __webpack_require__(36);
+var finished = __webpack_require__(37);
 
 var kLastResolve = Symbol('lastResolve');
 var kLastReject = Symbol('lastReject');
@@ -39070,7 +39072,7 @@ function destroyer(stream, reading, writing, callback) {
   stream.on('close', function () {
     closed = true;
   });
-  if (eos === undefined) eos = __webpack_require__(36);
+  if (eos === undefined) eos = __webpack_require__(37);
   eos(stream, {
     readable: reading,
     writable: writing
@@ -39492,7 +39494,7 @@ var EE = __webpack_require__(11).EventEmitter;
 var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
-Stream.Readable = __webpack_require__(39);
+Stream.Readable = __webpack_require__(40);
 Stream.Writable = __webpack_require__(167);
 Stream.Duplex = __webpack_require__(168);
 Stream.Transform = __webpack_require__(169);
@@ -39991,7 +39993,7 @@ module.exports = PassThrough;
 var Transform = __webpack_require__(74);
 
 /*<replacement>*/
-var util = Object.create(__webpack_require__(22));
+var util = Object.create(__webpack_require__(23));
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -40011,7 +40013,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 /* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
@@ -40025,14 +40027,14 @@ module.exports = __webpack_require__(13);
 /* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(39).Transform
+module.exports = __webpack_require__(40).Transform
 
 
 /***/ }),
 /* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(39).PassThrough
+module.exports = __webpack_require__(40).PassThrough
 
 
 /***/ }),
@@ -40225,8 +40227,8 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /***/ (function(module, exports, __webpack_require__) {
 
 var DES = __webpack_require__(175)
-var aes = __webpack_require__(42)
-var aesModes = __webpack_require__(43)
+var aes = __webpack_require__(43)
+var aesModes = __webpack_require__(44)
 var desModes = __webpack_require__(188)
 var ebtk = __webpack_require__(30)
 
@@ -40357,7 +40359,7 @@ DES.prototype._final = function () {
 
 
 exports.utils = __webpack_require__(83);
-exports.Cipher = __webpack_require__(41);
+exports.Cipher = __webpack_require__(42);
 exports.DES = __webpack_require__(84);
 exports.CBC = __webpack_require__(177);
 exports.EDE = __webpack_require__(178);
@@ -40445,7 +40447,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
 var assert = __webpack_require__(6);
 var inherits = __webpack_require__(1);
 
-var Cipher = __webpack_require__(41);
+var Cipher = __webpack_require__(42);
 var DES = __webpack_require__(84);
 
 function EDEState(type, key) {
@@ -40500,7 +40502,7 @@ EDE.prototype._unpad = DES.prototype._unpad;
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MODES = __webpack_require__(43)
+var MODES = __webpack_require__(44)
 var AuthCipher = __webpack_require__(88)
 var Buffer = __webpack_require__(2).Buffer
 var StreamCipher = __webpack_require__(89)
@@ -40633,7 +40635,7 @@ exports.decrypt = function (self, block) {
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var xor = __webpack_require__(23)
+var xor = __webpack_require__(24)
 
 exports.encrypt = function (self, block) {
   var data = xor(block, self._prev)
@@ -40657,7 +40659,7 @@ exports.decrypt = function (self, block) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(2).Buffer
-var xor = __webpack_require__(23)
+var xor = __webpack_require__(24)
 
 function encryptStart (self, data, decrypt) {
   var len = data.length
@@ -40774,7 +40776,7 @@ exports.encrypt = function (self, chunk, decrypt) {
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(23)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(24)
 
 function getBlock (self) {
   self._prev = self._cipher.encryptBlock(self._prev)
@@ -40894,7 +40896,7 @@ module.exports = GHASH
 
 var AuthCipher = __webpack_require__(88)
 var Buffer = __webpack_require__(2).Buffer
-var MODES = __webpack_require__(43)
+var MODES = __webpack_require__(44)
 var StreamCipher = __webpack_require__(89)
 var Transform = __webpack_require__(10)
 var aes = __webpack_require__(29)
@@ -44749,8 +44751,8 @@ function formatReturnValue(bn, enc) {
 /* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(45).Buffer
-var createHash = __webpack_require__(21)
+var Buffer = __webpack_require__(46).Buffer
+var createHash = __webpack_require__(22)
 var stream = __webpack_require__(197)
 var inherits = __webpack_require__(1)
 var sign = __webpack_require__(205)
@@ -44854,7 +44856,7 @@ exports.Writable = __webpack_require__(97);
 exports.Duplex = __webpack_require__(20);
 exports.Transform = __webpack_require__(98);
 exports.PassThrough = __webpack_require__(203);
-exports.finished = __webpack_require__(46);
+exports.finished = __webpack_require__(47);
 exports.pipeline = __webpack_require__(204);
 
 
@@ -45097,7 +45099,7 @@ var _Object$setPrototypeO;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var finished = __webpack_require__(46);
+var finished = __webpack_require__(47);
 
 var kLastResolve = Symbol('lastResolve');
 var kLastReject = Symbol('lastReject');
@@ -45393,7 +45395,7 @@ function destroyer(stream, reading, writing, callback) {
   stream.on('close', function () {
     closed = true;
   });
-  if (eos === undefined) eos = __webpack_require__(46);
+  if (eos === undefined) eos = __webpack_require__(47);
   eos(stream, {
     readable: reading,
     writable: writing
@@ -45462,11 +45464,11 @@ module.exports = pipeline;
 /***/ (function(module, exports, __webpack_require__) {
 
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var Buffer = __webpack_require__(45).Buffer
+var Buffer = __webpack_require__(46).Buffer
 var createHmac = __webpack_require__(75)
-var crt = __webpack_require__(47)
-var EC = __webpack_require__(49).ec
-var BN = __webpack_require__(48)
+var crt = __webpack_require__(48)
+var EC = __webpack_require__(50).ec
+var BN = __webpack_require__(49)
 var parseKeys = __webpack_require__(32)
 var curves = __webpack_require__(110)
 
@@ -47218,7 +47220,7 @@ exports.sha512 = __webpack_require__(103);
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(24);
+var common = __webpack_require__(25);
 var shaCommon = __webpack_require__(101);
 
 var rotl32 = utils.rotl32;
@@ -47378,7 +47380,7 @@ SHA384.prototype._digest = function digest(enc) {
 
 
 var utils = __webpack_require__(8);
-var common = __webpack_require__(24);
+var common = __webpack_require__(25);
 
 var rotl32 = utils.rotl32;
 var sum32 = utils.sum32;
@@ -48373,8 +48375,8 @@ module.exports = {
 var BN = __webpack_require__(9);
 var HmacDRBG = __webpack_require__(220);
 var utils = __webpack_require__(7);
-var curves = __webpack_require__(50);
-var rand = __webpack_require__(44);
+var curves = __webpack_require__(51);
+var rand = __webpack_require__(45);
 var assert = utils.assert;
 
 var KeyPair = __webpack_require__(221);
@@ -48620,7 +48622,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 "use strict";
 
 
-var hash = __webpack_require__(51);
+var hash = __webpack_require__(52);
 var utils = __webpack_require__(99);
 var assert = __webpack_require__(6);
 
@@ -49041,8 +49043,8 @@ Signature.prototype.toDER = function toDER(enc) {
 "use strict";
 
 
-var hash = __webpack_require__(51);
-var curves = __webpack_require__(50);
+var hash = __webpack_require__(52);
+var curves = __webpack_require__(51);
 var utils = __webpack_require__(7);
 var assert = utils.assert;
 var parseBytes = utils.parseBytes;
@@ -49570,7 +49572,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 const inherits = __webpack_require__(1);
-const Buffer = __webpack_require__(52).Buffer;
+const Buffer = __webpack_require__(53).Buffer;
 
 const DERDecoder = __webpack_require__(109);
 
@@ -49629,10 +49631,10 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 const base = exports;
 
-base.Reporter = __webpack_require__(54).Reporter;
-base.DecoderBuffer = __webpack_require__(25).DecoderBuffer;
-base.EncoderBuffer = __webpack_require__(25).EncoderBuffer;
-base.Node = __webpack_require__(53);
+base.Reporter = __webpack_require__(55).Reporter;
+base.DecoderBuffer = __webpack_require__(26).DecoderBuffer;
+base.EncoderBuffer = __webpack_require__(26).EncoderBuffer;
+base.Node = __webpack_require__(54);
 
 
 /***/ }),
@@ -49660,7 +49662,7 @@ constants._reverse = function reverse(map) {
   return res;
 };
 
-constants.der = __webpack_require__(55);
+constants.der = __webpack_require__(56);
 
 
 /***/ }),
@@ -49774,7 +49776,7 @@ var findProc = /Proc-Type: 4,ENCRYPTED[\n\r]+DEK-Info: AES-((?:128)|(?:192)|(?:2
 var startRegex = /^-----BEGIN ((?:.*? KEY)|CERTIFICATE)-----/m
 var fullRegex = /^-----BEGIN ((?:.*? KEY)|CERTIFICATE)-----([0-9A-z\n\r+/=]+)-----END \1-----$/m
 var evp = __webpack_require__(30)
-var ciphers = __webpack_require__(42)
+var ciphers = __webpack_require__(43)
 var Buffer = __webpack_require__(2).Buffer
 module.exports = function (okey, password) {
   var key = okey.toString()
@@ -49807,9 +49809,9 @@ module.exports = function (okey, password) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var Buffer = __webpack_require__(45).Buffer
-var BN = __webpack_require__(48)
-var EC = __webpack_require__(49).ec
+var Buffer = __webpack_require__(46).Buffer
+var BN = __webpack_require__(49)
+var EC = __webpack_require__(50).ec
 var parseKeys = __webpack_require__(32)
 var curves = __webpack_require__(110)
 
@@ -49896,7 +49898,7 @@ module.exports = verify
 /* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(49)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var elliptic = __webpack_require__(50)
 var BN = __webpack_require__(238)
 
 module.exports = function createECDH (curve) {
@@ -53504,12 +53506,12 @@ exports.publicDecrypt = function publicDecrypt (key, buf) {
 
 var parseKeys = __webpack_require__(32)
 var randomBytes = __webpack_require__(15)
-var createHash = __webpack_require__(21)
+var createHash = __webpack_require__(22)
 var mgf = __webpack_require__(111)
 var xor = __webpack_require__(112)
-var BN = __webpack_require__(56)
+var BN = __webpack_require__(57)
 var withPublic = __webpack_require__(113)
-var crt = __webpack_require__(47)
+var crt = __webpack_require__(48)
 var Buffer = __webpack_require__(2).Buffer
 
 module.exports = function publicEncrypt (publicKey, msg, reverse) {
@@ -53605,9 +53607,9 @@ function nonZero (len) {
 var parseKeys = __webpack_require__(32)
 var mgf = __webpack_require__(111)
 var xor = __webpack_require__(112)
-var BN = __webpack_require__(56)
-var crt = __webpack_require__(47)
-var createHash = __webpack_require__(21)
+var BN = __webpack_require__(57)
+var crt = __webpack_require__(48)
+var createHash = __webpack_require__(22)
 var withPublic = __webpack_require__(113)
 var Buffer = __webpack_require__(2).Buffer
 
@@ -53840,7 +53842,7 @@ module.exports = {"name":"dotenv","version":"16.3.1","description":"Loads enviro
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DownloadPDF__ = __webpack_require__(247);
-function Navbar(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("header",{className:"bg-gradient-to-r from-lightblue to-strongblue md:sticky top-0 z-10"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center","aria-label":"navigation bar"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"title-font font-medium  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue rounded  mb-4 md:mb-0"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#about",className:"ml-1 text-xl  text-s border-1 py-1 px-3 "},"Pr\xE9sentation")),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("nav",{className:"md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-snow\tflex flex-wrap items-center text-base justify-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#projects",className:"mr-5 inline-flex items-center  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue text-base mt-4 md:mt-0","aria-label":"pr\xE9sentation button"},"Projets"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#techno",className:"mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0","aria-label":"projets button"},"Technologies"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#skills",className:"mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0","aria-label":"comp\xE9tences button"},"Comp\xE9tences")),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DownloadPDF__["a" /* default */],null)));}
+function Navbar(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("header",{className:"opacity-70 bg-gradient-to-r from-black to-gray sm:sticky top-0 z-10 hover:opacity-100"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center","aria-label":"navigation bar"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("nav",{className:"md:ml-auto flex font-medium flex-wrap items-center justify-center "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#about",className:" mr-5  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1","aria-label":"p\xE9sentation button "},"Pr\xE9sentation"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#projects",className:" mr-5  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1","aria-label":"r\xE9alisation en groupe button"},"R\xE9alisations en groupe"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#personal_projects",className:" mr-5 border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1","aria-label":"projet perso button"},"Projets personnels"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#techno",className:"mr-5  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue mb-1","aria-label":"techno button"},"Technologies"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#skills",className:"mr-5  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue mb-1","aria-label":"skills button"},"Comp\xE9tences"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:"#contact",className:"mr-5   border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1","aria-label":"formulaire button"},"Formulaire de contact"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__DownloadPDF__["a" /* default */],null))));}
 
 /***/ }),
 /* 247 */
@@ -53850,10 +53852,10 @@ function Navbar(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createEle
 /* harmony export (immutable) */ __webpack_exports__["a"] = Download;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_pdf_Gianni_Accardi_pdf__ = __webpack_require__(478);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_pdf_Gianni_Accardi_pdf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__assets_pdf_Gianni_Accardi_pdf__);
-function Download(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:__WEBPACK_IMPORTED_MODULE_2__assets_pdf_Gianni_Accardi_pdf___default.a,target:"#blank",className:"inline-flex items-center bg-lightblue border-0 py-1 px-3 focus:outline-none hover:bg-strongblue hover:text-lightblue rounded text-base mt-4 md:mt-0"},"T\xE9l\xE9charger mon CV",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["d" /* FolderDownloadIcon */],{className:"w-5 h-5 ml-2"}));}
+function Download(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:__WEBPACK_IMPORTED_MODULE_2__assets_pdf_Gianni_Accardi_pdf___default.a,target:"#blank",className:"inline-flex items-center mr-5   border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1","aria-label":"t\xE9l\xE9chargement button"},"T\xE9l\xE9charger mon CV",__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["d" /* FolderDownloadIcon */],{className:" w-4 h-4 ml-1"}));}
 
 /***/ }),
 /* 248 */
@@ -57660,7 +57662,7 @@ function PuzzleIcon(props) {
   }));
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (PuzzleIcon);
+/* harmony default export */ __webpack_exports__["a"] = (PuzzleIcon);
 
 /***/ }),
 /* 413 */
@@ -59137,11 +59139,11 @@ module.exports = __webpack_require__.p + "static/media/Gianni-Accardi.0ce3294a.p
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = Projects;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Showproject__ = __webpack_require__(480);
-function Projects(){return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("section",{id:"projects",className:"text-lightblue bg-gradient-to-r from-gray to-strongblue body-font"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto text-center lg:px-40"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"flex flex-col w-full  mb-20"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__["c" /* CodeIcon */],{className:"mx-auto inline-block w-10 mb-4"}),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font mb-4 text-lightblue"},"Mes r\xE9alisations"),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"Vous trouverez ci-dessous mes diff\xE9rents projets et r\xE9alisations. Ces projets sont le r\xE9sultat de travails de groupe ou personnel. J'ai ainsi pu saisir les diff\xE9rentes notions li\xE9es entre le Front-end et le Back-end, d\xE9couvrir de nouveaux langages de programmation, comprendre l'enjeu de certaines m\xE9thodes agiles afin de r\xE9aliser un MVP dans des d\xE9lais plus ou moins restreint."),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("br",null),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"Cliquez sur une image afin d'avoir acc\xE8s aux d\xE9pots github et suivez les instruction du README.md")),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showproject__["a" /* default */],null)));}
+function Projects(){return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("section",{id:"projects",className:"text-lightblue bg-gradient-to-r from-gray to-strongblue body-font"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto text-center lg:px-40"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"flex flex-col w-full  mb-20"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__["c" /* CodeIcon */],{className:"mx-auto inline-block w-10 mb-4"}),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font mb-4 text-lightblue"},"Nos r\xE9alisations"),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"Vous trouverez ci-dessous mes diff\xE9rents projets. Ces projets sont le r\xE9sultat de travails de groupe.",__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("br",null),"J'ai ainsi pu saisir les diff\xE9rentes notions li\xE9es entre le Front-end et le Back-end, d\xE9couvrir de nouveaux langages de programmation, comprendre l'enjeu de certaines m\xE9thodes agiles afin de r\xE9aliser un MVP dans des d\xE9lais plus ou moins restreint."),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("br",null),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"Cliquez sur une image afin d'avoir acc\xE8s aux d\xE9pots github et suivez les instruction du README.md")),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showproject__["a" /* default */],null)));}
 
 /***/ }),
 /* 480 */
@@ -59151,8 +59153,8 @@ function Projects(){return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createE
 /* harmony export (immutable) */ __webpack_exports__["a"] = ShowProject;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(57);
-function ShowProject(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"show project"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap -m-4"},__WEBPACK_IMPORTED_MODULE_1__Data__["a" /* projects */].map(function(project){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:project.link,key:project.id,target:"#blank",className:"sm:w-1/2 w-full h-full p-4"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex relative "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("picture",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:project.webp,type:"image/webp"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:project.image,type:"image/gif"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{alt:project.alt,className:"absolute w-full h-full  object-cover object-center",src:project.image})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"px-8 py-10 relative z-10 w-full border-4 border-aquamarine bg-gray opacity-0 hover:opacity-100"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2",{className:"tracking-widest text-sm title-font font-medium  mb-1"},project.subtitle),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"title-font text-lg font-medium  mb-3"},project.title),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p",{className:"leading-relaxed "},project.description))));})));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(33);
+function ShowProject(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"show project"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap -m-4"},__WEBPACK_IMPORTED_MODULE_1__Data__["b" /* projects */].map(function(project){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:project.link,key:project.id,target:"#blank",className:"sm:w-1/2 w-full h-full p-4"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex relative "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("picture",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:project.webp,type:"image/webp"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:project.image,type:"image/gif"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{alt:project.alt,className:"absolute w-full h-full  object-cover object-center",src:project.image})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"px-8 py-10 relative z-10 w-full border-4 border-aquamarine bg-gray opacity-0 hover:opacity-100"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2",{className:"tracking-widest text-sm title-font font-medium  mb-1"},project.subtitle),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"title-font text-lg font-medium  mb-3"},project.title),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p",{className:"leading-relaxed "},project.description))));})));}
 
 /***/ }),
 /* 481 */
@@ -59261,23 +59263,23 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADX
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Skills;
+/* harmony export (immutable) */ __webpack_exports__["a"] = PersonalProject;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Showskill__ = __webpack_require__(499);
-function Skills(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"skills",className:"bg-gradient-to-r from-lightblue to-gray"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto text-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["e" /* UsersIcon */],{className:"w-10 inline-block mb-4 text-strongblue"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font text-strongblue mb-12"},"Mes softs skills"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-strongblue"},"Mes diff\xE9rents travaux m'ont appris que pour \xEAtre un \"bon\" d\xE9veloppeur, le savoir cod\xE9 n'\xE9tait pas suffisant, l'important se trouve peut \xEAtre ailleurs ..."),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showskill__["a" /* default */],null))));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ShowPersonalProject__ = __webpack_require__(499);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__ = __webpack_require__(21);
+function PersonalProject(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"personal_projects",className:"text-lightblue bg-gradient-to-r from-strongblue to-gray body-font "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto text-center lg:px-40"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-col w-full  mb-20"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__["e" /* PuzzleIcon */],{className:"mx-auto inline-block w-10 mb-4"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font mb-4 text-lightblue"},"Mes projets personnels"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"En tant que passionn\xE9 de jeux de logique et de strat\xE9gie, j'ai d\xE9cid\xE9 de consacrer mes projets personnels \xE0 ce domaine, avec pour objectif de renforcer ma logique et d'explorer des technologies inconnues."),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br",null),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p",{className:"lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue"},"Cliquez sur une image afin d'avoir acc\xE8s aux d\xE9pots github.")),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ShowPersonalProject__["a" /* default */],null)));}
 
 /***/ }),
 /* 499 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Showskill;
+/* harmony export (immutable) */ __webpack_exports__["a"] = ShowProject;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(57);
-function Showskill(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2"},__WEBPACK_IMPORTED_MODULE_1__Data__["b" /* skills */].map(function(skill){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{key:skill.id,className:"p-2 sm:w-1/2 w-full"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"bg-strongblue rounded flex p-4 h-full items-center border-4 border-strongblue "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{className:"mr-4",alt:skill.alt,src:skill.icon}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"title-font font-medium text-lightblue"},skill.name)));}));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(33);
+function ShowProject(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"show project"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap -m-4"},__WEBPACK_IMPORTED_MODULE_1__Data__["a" /* personalProjects */].map(function(personalProject){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:personalProject.link,key:personalProject.id,target:"#blank",className:"sm:w-1/2 w-full h-full p-4"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex relative "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("picture",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:personalProject.webp,type:"image/webp"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("source",{srcSet:personalProject.image,type:"image/gif"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{alt:personalProject.alt,className:"absolute w-full h-full  object-cover object-center",src:personalProject.image})),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"px-8 py-10 relative z-10 w-full border-4 border-aquamarine bg-gray opacity-0 hover:opacity-100"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2",{className:"tracking-widest text-sm title-font font-medium  mb-1"},personalProject.subtitle),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"title-font text-lg font-medium  mb-3"},personalProject.title),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("p",{className:"leading-relaxed "},personalProject.description))));})));}
 
 /***/ }),
 /* 500 */
@@ -59285,24 +59287,47 @@ function Showskill(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.create
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = Skills;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Showtechno__ = __webpack_require__(501);
-function Skills(){return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("section",{id:"techno",className:"bg-gradient-to-r from-lightblue to-gray"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"text-center mb-20"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__["b" /* ChipIcon */],{className:"w-10 inline-block mb-4 text-strongblue"}),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font text-strongblue mb-4"},"Les outils techniques"),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-strongblue"},"Voici un aper\xE7u des technologies dont j'ai eu besoin afin de r\xE9aliser ces diff\xE9rents projets.")),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showtechno__["a" /* default */],null)));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Showskill__ = __webpack_require__(501);
+function Skills(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"skills",className:"bg-gradient-to-r from-lightblue to-gray"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto text-center"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__heroicons_react_solid__["f" /* UsersIcon */],{className:"w-10 inline-block mb-4 text-strongblue"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font text-strongblue mb-12"},"Mes softs skills"),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-strongblue"},"Mes diff\xE9rents travaux m'ont appris que pour \xEAtre un \"bon\" d\xE9veloppeur, le savoir cod\xE9 n'\xE9tait pas suffisant, l'important se trouve peut \xEAtre ailleurs ..."),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showskill__["a" /* default */],null))));}
 
 /***/ }),
 /* 501 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = Showskill;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(33);
+function Showskill(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2"},__WEBPACK_IMPORTED_MODULE_1__Data__["c" /* skills */].map(function(skill){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{key:skill.id,className:"p-2 sm:w-1/2 w-full"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"bg-strongblue rounded flex p-4 h-full items-center border-4 border-strongblue "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img",{className:"mr-4",alt:skill.alt,src:skill.icon}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span",{className:"title-font font-medium text-lightblue"},skill.name)));}));}
+
+/***/ }),
+/* 502 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = Skills;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Showtechno__ = __webpack_require__(503);
+function Skills(){return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("section",{id:"techno",className:"bg-gradient-to-r from-lightblue to-gray"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"container px-5 py-10 mx-auto"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div",{className:"text-center mb-20"},__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__heroicons_react_solid__["b" /* ChipIcon */],{className:"w-10 inline-block mb-4 text-strongblue"}),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("h1",{className:"sm:text-4xl text-3xl font-medium title-font text-strongblue mb-4"},"Les outils techniques"),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("p",{className:"text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-strongblue"},"Voici un aper\xE7u des technologies dont j'ai eu besoin afin de r\xE9aliser ces diff\xE9rents projets.")),__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Showtechno__["a" /* default */],null)));}
+
+/***/ }),
+/* 503 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = Showtechnos;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__ = __webpack_require__(26);
-function Showtechnos(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"show techno"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2"},__WEBPACK_IMPORTED_MODULE_1__Data__["c" /* techno */].map(function(technologies){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:technologies.link,key:technologies.link,target:"#blank",className:"p-2 sm:w-1/4 w-full"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"bg-strongblue rounded flex p-4 h-full items-center hover:bg-lightblue  text-lightblue hover:text-strongblue "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__["a" /* BadgeCheckIcon */],{className:"text-green w-6 h-6 flex-shrink-0 mr-4"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"title-font font-medium  "},technologies.name))));})));}
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Data__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__ = __webpack_require__(21);
+function Showtechnos(){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("section",{id:"show techno"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2"},__WEBPACK_IMPORTED_MODULE_1__Data__["d" /* techno */].map(function(technologies){return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("a",{href:technologies.link,key:technologies.link,target:"#blank",className:"p-2 sm:w-1/4 w-full"},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",null,__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"bg-strongblue rounded flex p-4 h-full items-center hover:bg-lightblue  text-lightblue hover:text-strongblue "},__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__heroicons_react_solid__["a" /* BadgeCheckIcon */],{className:"text-green w-6 h-6 flex-shrink-0 mr-4"}),__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div",{className:"title-font font-medium  "},technologies.name))));})));}
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.62dd0dc7.js.map
+//# sourceMappingURL=main.0cf15b00.js.map
