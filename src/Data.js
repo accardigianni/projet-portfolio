@@ -20,16 +20,7 @@ import mentorat from "./assets/png/mentorat.png";
 
 
 export const projects = [
-  {
-    title: "puissance 4 en 3D",
-    subtitle: "Java, Spring",
-    description:
-      "jeu de logique",
-    image: workinprog,
-    link: "https://github.com/accardigianni/Puissance-4-3D",
-    id: 6,
-    alt: "projet titre RNCP"
-  },
+  
   {
     title: "Antikea",
     subtitle: "MongoDB, Node.js, Javascript, React et Bootstrap",
@@ -63,17 +54,7 @@ export const projects = [
     id: 3,
     alt: "projet découverte api"
   },
-  {
-    title: "Morpion",
-    subtitle: "Typescript et angular",
-    description:
-      "Petit jeu de morpion, qui seras le plus grand stratège",
-    image: morpion,
-    webp: morpionwebp,
-    link: "https://github.com/accardigianni/projets-morpions",
-    id: 4,
-    alt: "projet framework angular"
-  },
+  
   {
     title: "Jeux video rétro",
     subtitle: "Pico-8 et LUA",
@@ -86,6 +67,30 @@ export const projects = [
     alt: "projet jeux video type zelda"
   }
 ];
+
+export const personalProjects =[
+  {
+    title: "puissance 4 en 3D",
+    subtitle: "Java, Spring",
+    description:
+      "jeu de logique",
+    image: workinprog,
+    link: "https://github.com/accardigianni/Puissance-4-3D",
+    id: 6,
+    alt: "projet titre RNCP"
+  },
+  {
+    title: "Morpion",
+    subtitle: "Typescript et angular",
+    description:
+      "Petit jeu de morpion, qui seras le plus grand stratège",
+    image: morpion,
+    webp: morpionwebp,
+    link: "https://github.com/accardigianni/projets-morpions",
+    id: 4,
+    alt: "projet framework angular"
+  },
+]
 
 
 export const skills = [
@@ -139,6 +144,11 @@ export const techno = [
     alt: "Typescript"
   },
   {
+    name: "Java",
+    link: "https://www.java.com/fr/",
+    alt: "Java"
+  },
+  {
     name: "PHP",
     link: "https://www.php.net/manual/fr/intro-whatis.php",
     alt: "PHP"
@@ -167,6 +177,11 @@ export const techno = [
     name: "Mysql",
     link: "https://www.mysql.com/fr/",
     alt: "Mysql"
+  },
+  {
+    name: "Spring",
+    link: "https://spring.io/",
+    alt: "Spring"
   },
   {
     name: "Insomnia",

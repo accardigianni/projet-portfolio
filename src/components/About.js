@@ -43,7 +43,7 @@ export default function About() {
                         Bonne navigation !!!
                         <img src={photoSmile} alt="smile" className="mb-8 leading-relaxed self-start ml-4 mt-5" />
                     </div>
-                    <div className="flex justify-center">
+                    {/* <div className="flex justify-center">
                         <a
                             href="#contact"
                             className="inline-flex text-lightblue bg-strongblue border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg">
@@ -54,7 +54,7 @@ export default function About() {
                             className="ml-4 inline-flex text-lightblue bg-strongblue border-0 py-2 px-6 focus:outline-none hover:bg-gray hover:text-snow rounded text-lg">
                             Présentation des projets
                         </a>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="lg:max-w-lg lg:w-2/5 md:w-1/2 w-5/6">
                     <picture>

@@ -12,15 +12,26 @@ export default function Navbar() {
             Présentation
           </a>
         </div>
-        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-snow	flex flex-wrap items-center text-base justify-center">
-          <a href="#projects" className="mr-5 inline-flex items-center  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue text-base mt-4 md:mt-0" aria-label="présentation button">
-            Projets
+        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4  xl:border-l xl:border-snow	flex flex-wrap items-center text-base justify-center">
+          <a href="#projects" className="mr-5 inline-flex items-center  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue text-base mt-4 md:mt-0 " aria-label="réalisation en groupe button">
+            Réalisations en groupe
           </a>
-          <a href="#techno" className="mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0" aria-label="projets button">
-            Technologies
+          
+          <a
+            href="#personal_projects"
+            className="mr-5 inline-flex items-center  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue text-base mt-4 md:mt-0" aria-label="projet perso button">
+            Projets personnels
           </a>
-          <a href="#skills" className="mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0" aria-label="compétences button">
+          <a href="#techno" className="mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0" aria-label="techno button">
+            Technologies & compétences
+          </a>
+          {/* <a href="#skills" className="mr-5 inline-flex items-center border-1 py-1 px-3 rounded  bg-lightblue text-strongblue hover:bg-strongblue  hover:text-lightblue text-base mt-4 md:mt-0" aria-label="compétences button">
             Compétences
+          </a> */}
+          <a
+            href="#contact"
+            className="mr-5 inline-flex items-center  border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue text-base mt-4 md:mt-0" aria-label="formulaire button">
+            Formulaire de contact
           </a>
         </nav>
         <Download />

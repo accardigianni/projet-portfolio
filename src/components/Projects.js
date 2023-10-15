@@ -10,11 +10,12 @@ export default function Projects() {
                 <div className="flex flex-col w-full  mb-20">
                     <CodeIcon className="mx-auto inline-block w-10 mb-4" />
                     <h1 className="sm:text-4xl text-3xl font-medium title-font mb-4 text-lightblue">
-                        Mes réalisations
+                        Nos réalisations
                     </h1>
                     <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-left text-lightblue">
-                        Vous trouverez ci-dessous mes différents projets et réalisations.
-                        Ces projets sont le résultat de travails de groupe ou personnel.
+                        Vous trouverez ci-dessous mes différents projets.
+                        Ces projets sont le résultat de travails de groupe.
+                        <br/>
                         J'ai ainsi pu saisir les différentes notions liées entre le Front-end et le Back-end, découvrir de nouveaux langages de programmation,
                         comprendre l'enjeu de certaines méthodes agiles afin de réaliser un MVP dans des délais plus ou moins restreint.
                     </p>
