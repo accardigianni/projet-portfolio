@@ -8,6 +8,7 @@ module.exports = {
       lightblue: '#B9D0E9',
       green: '#31ED47',
       white: '#fff',
+      black:'#0a0a0a',
       extend: {},
     }
   },

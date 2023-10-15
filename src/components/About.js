@@ -6,14 +6,14 @@ import PhotoMewebp from "../assets/webp/me2.webp"
 
 export default function About() {
     return (
-        <section id="about" className="bg-lightblue">
-            <div className="container mx-auto flex px-10 py-20 md:flex-row flex-col items-center">
+        <section id="about" className="bg-lightblue hover:opacity-100">
+            <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div className="flex items-center">
                         <div className="title-font sm:text-4xl text-3xl mb-4 font-medium text-strongblue flex items-center justify-center">
                             <img src={photoHello} alt="hello" className="self-start mt-2 mr-1" />
                             <h1>
-                                Salut, je m'appelle Gianni et je suis étudiant en conception et développement web.
+                                Salut, Moi c'est Gianni et je suis étudiant en conception et développement web.
                             </h1>
                         </div>
                     </div>

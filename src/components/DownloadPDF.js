@@ -8,9 +8,9 @@ export default function Download() {
         <a
             href={CV}
             target="#blank"
-            className="inline-flex items-center bg-lightblue border-0 py-1 px-3 focus:outline-none hover:bg-strongblue hover:text-lightblue rounded text-base mt-4 md:mt-0">
+            className="inline-flex items-center mr-5   border-1 py-1 px-3 rounded  bg-lightblue text-strongblue  hover:text-lightblue  hover:bg-strongblue mb-1" aria-label="téléchargement button">
             Télécharger mon CV
-            <FolderDownloadIcon className="w-5 h-5 ml-2" />
+            <FolderDownloadIcon className=" w-4 h-4 ml-1" />
         </a>
     )
 }
